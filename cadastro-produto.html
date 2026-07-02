@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tecfarma - Cadastro de Produto</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f4f7f5;
+      color: #1a2e22;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+    :root {
+      --green-dark:   #1a6b3c;
+      --green-mid:    #2a8a50;
+      --green-light:  #e8f5ed;
+      --green-border: #b2dfc1;
+      --teal:         #17a398;
+      --teal-light:   #e6f7f6;
+      --blue-dark:    #1c4f82;
+      --blue-mid:     #2b6cb0;
+      --blue-light:   #ebf2fa;
+      --blue-border:  #90c3e8;
+      --amber:        #b45309;
+      --amber-light:  #fffbeb;
+      --neutral-100:  #f8faf9;
+      --neutral-200:  #e9eeeb;
+      --neutral-400:  #9aada0;
+      --neutral-700:  #3d5244;
+      --neutral-900:  #1a2e22;
+      --white:        #ffffff;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08);
+      --radius:       10px;
+    }
+    .top-banner {
+      background: linear-gradient(135deg, #0a7d53 0%, #17a398 100%);
+      color: #ffffff;
+      padding: 2.25rem 1.25rem 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .top-banner-inner { max-width: 900px; margin: 0 auto; }
+    .top-banner h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: .35rem;
+    }
+    .top-banner p { font-size: .95rem; opacity: .88; }
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 999px;
+      padding: .3rem .9rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #d4efdf;
+    }
+    .breadcrumb span { opacity: .7; }
+    .section {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a6b3c;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: #2a8a50;
+      border-radius: 2px;
+    }
+    .intro-text { font-size: 1rem; color: #3d5244; margin-bottom: .75rem; }
+    .step-list {
+      list-style: none;
+      counter-reset: step-ctr;
+      margin-top: .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+    .step-list li {
+      counter-increment: step-ctr;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-list li::before {
+      content: counter(step-ctr);
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: #1a6b3c;
+      color: #ffffff;
+      font-size: .85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: .05rem;
+    }
+    .step-list li .step-text { flex: 1; font-size: .97rem; color: #3d5244; }
+    .step-list li .step-text em { font-style: normal; font-weight: 700; color: #1a2e22; }
+    .callout {
+      border-radius: 8px;
+      padding: .85rem 1.1rem;
+      margin-top: 1.1rem;
+      display: flex;
+      gap: .65rem;
+      align-items: flex-start;
+      font-size: .88rem;
+    }
+    .callout-amber { background: #fffbeb; border-left: 4px solid #b45309; color: #78350f; }
+    .callout-teal  { background: #e6f7f6; border-left: 4px solid #17a398; color: #164e4a; }
+    .callout-green { background: #e8f5ed; border-left: 4px solid #2a8a50; color: #14532d; }
+    .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
+    .callout strong { font-weight: 700; }
+    .tip {
+      background: #f8faf9;
+      border: 1px solid #e9eeeb;
+      border-radius: 8px;
+      padding: .7rem 1rem;
+      font-size: .85rem;
+      color: #3d5244;
+      margin-top: .75rem;
+    }
+    .tip strong { color: #1a2e22; }
+    .aba-grid { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1rem; }
+    .aba-card { border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .aba-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .9rem 1.4rem;
+      background: #1a6b3c;
+      color: #ffffff;
+    }
+    .aba-header.alt       { background: #1c4f82; }
+    .aba-header.teal-bg   { background: #17a398; }
+    .aba-header.amber-bg  { background: #b45309; }
+    .aba-header.neutral-bg{ background: #3d5244; }
+    .aba-header.purple-bg { background: #5b21b6; }
+    .aba-num {
+      width: 2rem; height: 2rem; border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      border: 1.5px solid rgba(255,255,255,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: .9rem; flex-shrink: 0;
+    }
+    .aba-header h3 { font-size: 1rem; font-weight: 700; }
+    .aba-body { background: #ffffff; padding: 1.2rem 1.5rem; border: 1px solid #e9eeeb; border-top: none; }
+    .aba-desc { font-size: .9rem; color: #3d5244; margin-bottom: .75rem; }
+    .field-list { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .field-list li { display: flex; gap: .6rem; align-items: flex-start; font-size: .88rem; color: #3d5244; }
+    .field-list li::before { content: "\25B8"; color: #2a8a50; font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+    .field-list.blue   li::before { color: #2b6cb0; }
+    .field-list.teal   li::before { color: #17a398; }
+    .field-list.amber  li::before { color: #b45309; }
+    .field-list.purple li::before { color: #7c3aed; }
+    .field-list li strong { color: #1a2e22; }
+    .tag-req {
+      display: inline-block;
+      background: #fee2e2; color: #991b1b;
+      border-radius: 999px; padding: .05rem .5rem;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .04em; text-transform: uppercase;
+      margin-left: .35rem; vertical-align: middle;
+    }
+    .edit-card {
+      background: #ebf2fa;
+      border: 2px solid #90c3e8;
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      margin-top: 1rem;
+    }
+    .edit-card-title { font-weight: 800; color: #1c4f82; margin-bottom: .75rem; font-size: 1rem; }
+    .doc-footer {
+      border-top: 1px solid #e9eeeb;
+      padding-top: 1.25rem; margin-top: 2rem;
+      font-size: .8rem; color: #9aada0;
+      text-align: center; line-height: 1.7;
+    }
+    @media print {
+      body { background: #fff; }
+      .top-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <div class="top-banner-inner">
+      <div class="breadcrumb">
+        <span>Cadastros</span>
+        <span>&rsaquo;</span>
+        <span>Estoque</span>
+        <span>&rsaquo;</span>
+        <span style="color:#fff;opacity:1;">Produto</span>
+      </div>
+      <h1>Cadastro de Produto</h1>
+      <p>Guia completo para registrar e editar produtos na Retaguarda do Tecfarma</p>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- INTRODUCAO -->
+    <div class="section">
+      <div class="section-title">Introducao</div>
+      <p class="intro-text">
+        O cadastro de produtos e realizado na <strong>Retaguarda do Tecfarma</strong>, acessando o menu
+        <strong>Cadastros &rsaquo; Estoque &rsaquo; Produto</strong>.
+        E nesta tela que voce define todas as informacoes do item: descricao, preco, tributacao fiscal,
+        controle de vencimento, fornecedores e composicao de kits.
+      </p>
+      <p class="intro-text">
+        Um produto bem cadastrado garante que o <strong>PDV (frente de caixa)</strong> funcione
+        corretamente: preco exibido, estoque controlado, nota fiscal emitida sem erros e alertas de
+        vencimento ativos.
+      </p>
+      <div class="callout callout-teal">
+        <span class="callout-icon">&#x2139;</span>
+        <div>
+          <strong>Acesso rapido:</strong> Menu principal &rsaquo; <em>Cadastros</em> &rsaquo;
+          <em>Estoque</em> &rsaquo; <em>Produto</em>. Sao necessarias permissoes de acesso
+          configuradas pelo administrador do sistema.
+        </div>
+      </div>
+    </div>
+
+    <!-- COMO ABRIR A TELA -->
+    <div class="section">
+      <div class="section-title">Como abrir a tela de Cadastro de Produto</div>
+      <p class="intro-text">Siga os passos abaixo para acessar o modulo:</p>
+      <ol class="step-list">
+        <li>
+          <div class="step-text">
+            No menu principal da Retaguarda do Tecfarma, clique em <em>Cadastros</em>.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            No submenu, selecione <em>Estoque</em> e depois <em>Produto</em>.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            A tela de listagem de produtos sera exibida. Utilize os filtros de <em>Descricao</em>,
+            <em>Codigo de barras</em> ou <em>Grupo</em> para localizar um produto ja existente,
+            ou clique no botao <em>Novo</em> para iniciar um novo cadastro.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Ao abrir o cadastro, voce vera as <strong>6 abas</strong> que organizam as informacoes
+            do produto. Preencha cada aba conforme necessario e salve ao final.
+          </div>
+        </li>
+      </ol>
+      <div class="callout callout-green">
+        <span class="callout-icon">&#x1F50D;</span>
+        <div>
+          <strong>Dica:</strong> Use o campo de busca rapida na listagem digitando parte do nome
+          ou o codigo EAN do produto para encontra-lo rapidamente.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSO A PASSO NOVO CADASTRO -->
+    <div class="section">
+      <div class="section-title">Passo a passo: cadastrar um novo produto</div>
+      <p class="intro-text">
+        Para incluir um produto que ainda nao existe no sistema, siga a sequencia abaixo.
+        Os campos marcados com <span class="tag-req">obrigatorio</span> devem ser preenchidos
+        antes de salvar.
+      </p>
+      <ol class="step-list">
+        <li>
+          <div class="step-text">
+            Na listagem de produtos, clique no botao <em>Novo</em> (ou tecla de atalho correspondente).
+            O formulario de cadastro abrira na aba <em>Dados Cadastrais</em>.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Preencha a <em>Descricao do Produto</em> <span class="tag-req">obrigatorio</span>
+            com o nome completo e claro do item (ex.: <em>Dipirona Sodica 500mg 20 Comprimidos</em>).
+            Evite abreviacoes que possam dificultar a identificacao no PDV.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Informe o <em>Codigo de Barras (EAN)</em> do produto, se disponivel.
+            Este e o codigo lido pelo leitor no PDV. Produtos sem codigo de barras podem usar
+            codigo interno gerado pelo sistema.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Selecione o <em>Grupo</em> <span class="tag-req">obrigatorio</span> ao qual o produto
+            pertence (ex.: Medicamentos, Cosmeticos, Perfumaria). O grupo e usado para relatorios
+            e parametrizacoes fiscais.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Defina os <em>Precos</em> do produto: <em>Preco de Custo</em>, <em>Preco de Venda</em>
+            e, se aplicavel, o <em>PMC (Preco Maximo ao Consumidor)</em>.
+            O preco de venda e o valor cobrado no PDV.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Percorra as demais abas (<em>Dados Complementares</em>, <em>Dados Fiscais</em>,
+            <em>Controle de Vencimento</em>, <em>Fornecedores</em>, <em>Produtos do Kit</em>)
+            e preencha as informacoes relevantes para cada tipo de produto.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Ao concluir todas as abas, clique no botao <em>Salvar</em> (ou <em>Gravar</em>)
+            para registrar o produto no sistema. Uma mensagem de confirmacao sera exibida.
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- AS 6 ABAS -->
+    <div class="section">
+      <div class="section-title">As 6 abas do cadastro de produto</div>
+      <p class="intro-text">
+        O formulario de cadastro e dividido em <strong>6 abas</strong>, cada uma responsavel
+        por um conjunto especifico de informacoes. Navegue entre elas clicando nas guias no topo
+        do formulario.
+      </p>
+      <div class="aba-grid">
+
+        <!-- ABA 1: DADOS CADASTRAIS -->
+        <div class="aba-card">
+          <div class="aba-header">
+            <span class="aba-num">1</span>
+            <h3>Dados Cadastrais</h3>
+          </div>
+          <div class="aba-body">
+            <p class="aba-desc">
+              Informacoes principais de identificacao e precificacao do produto.
+              Esta e a aba mais importante e deve ser preenchida com aten&ccedil;&atilde;o.
+            </p>
+            <ul class="field-list">
+              <li><strong>Descricao</strong> <span class="tag-req">obrigatorio</span> &mdash; Nome completo do produto exibido no PDV e nos relatorios.</li>
+              <li><strong>Codigo de Barras (EAN)</strong> &mdash; Codigo lido pelo leitor optico no caixa. Pode ser gerado automaticamente se nao houver EAN.</li>
+              <li><strong>Grupo / Classe / Subclasse</strong> &mdash; Classificacao do produto para relatorios, filtros e parametrizacoes fiscais.</li>
+              <li><strong>Unidade</strong> &mdash; Unidade de medida de venda (UN, CX, FR, etc.).</li>
+              <li><strong>Preco de Custo</strong> &mdash; Valor de entrada do produto (base para calculo de margem).</li>
+              <li><strong>Preco de Venda</strong> <span class="tag-req">obrigatorio</span> &mdash; Valor cobrado do cliente no PDV.</li>
+              <li><strong>PMC (Preco Maximo ao Consumidor)</strong> &mdash; Preco tabelado pela ANVISA para medicamentos. Nao pode ser ultrapassado na venda.</li>
+              <li><strong>Promocao (R$)</strong> &mdash; Preco promocional temporario. Quando preenchido, o PDV aplica automaticamente o desconto.</li>
+              <li><strong>Estoque Atual</strong> &mdash; Quantidade disponivel em estoque (atualizado automaticamente por entradas e saidas).</li>
+              <li><strong>Estoque Minimo</strong> &mdash; Quantidade minima desejada para alerta de reposicao.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ABA 2: DADOS COMPLEMENTARES -->
+        <div class="aba-card">
+          <div class="aba-header alt">
+            <span class="aba-num">2</span>
+            <h3>Dados Complementares</h3>
+          </div>
+          <div class="aba-body">
+            <p class="aba-desc">
+              Informacoes adicionais sobre o produto, uteis para identificacao tecnica,
+              pesquisa e rastreabilidade interna.
+            </p>
+            <ul class="field-list blue">
+              <li><strong>Apresentacao</strong> &mdash; Forma farmaceutica ou de apresentacao do produto (ex.: Comprimido, Capsula, Frasco, Creme).</li>
+              <li><strong>Principio Ativo</strong> &mdash; Substancia ativa do medicamento (ex.: Ibuprofeno, Amoxicilina). Util para busca no PDV.</li>
+              <li><strong>Referencia</strong> &mdash; Codigo ou referencia interna do produto para controle proprio do estabelecimento.</li>
+              <li><strong>Observacoes</strong> &mdash; Campo livre para anotacoes sobre o produto (instrucoes especiais, restricoes, etc.).</li>
+            </ul>
+            <div class="tip">
+              <strong>Dica:</strong> Preencher o Principio Ativo permite que o operador do PDV
+              pesquise o medicamento pelo nome do ativo, facilitando o atendimento ao cliente.
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 3: DADOS FISCAIS -->
+        <div class="aba-card">
+          <div class="aba-header teal-bg">
+            <span class="aba-num">3</span>
+            <h3>Dados Fiscais</h3>
+          </div>
+          <div class="aba-body">
+            <p class="aba-desc">
+              Configuracoes tributarias do produto, indispensaveis para a emissao correta
+              de NF-e (Nota Fiscal Eletronica) e NFC-e (Cupom Fiscal Eletronico).
+              Erros nesta aba podem causar rejeicao de documentos fiscais.
+            </p>
+            <ul class="field-list teal">
+              <li><strong>NCM (Nomenclatura Comum do Mercosul)</strong> <span class="tag-req">obrigatorio</span> &mdash; Codigo de classificacao fiscal da mercadoria (8 digitos). Determina a aliquota de impostos federais.</li>
+              <li><strong>CEST (Codigo Especificador da Substituicao Tributaria)</strong> &mdash; Obrigatorio para produtos sujeitos a ST (Substituicao Tributaria). Verifique se se aplica ao produto.</li>
+              <li><strong>Origem</strong> &mdash; Origem da mercadoria (0 = Nacional, 1 = Estrangeira Importacao direta, etc.). Afeta o calculo do ICMS.</li>
+              <li><strong>CST / CSOSN</strong> &mdash; Codigo de Situacao Tributaria do ICMS. Define como o imposto e calculado para o produto.</li>
+              <li><strong>Tributacao / Aliquota</strong> &mdash; Percentual de ICMS, PIS e COFINS aplicavel ao produto conforme a legislacao estadual e federal.</li>
+            </ul>
+            <div class="callout callout-amber">
+              <span class="callout-icon">&#x26A0;</span>
+              <div>
+                <strong>Atencao:</strong> Os campos fiscais impactam diretamente a emissao de notas
+                fiscais no PDV. Em caso de duvida, consulte o contador ou o responsavel fiscal do
+                estabelecimento antes de salvar.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 4: CONTROLE DE VENCIMENTO -->
+        <div class="aba-card">
+          <div class="aba-header amber-bg">
+            <span class="aba-num">4</span>
+            <h3>Controle de Vencimento</h3>
+          </div>
+          <div class="aba-body">
+            <p class="aba-desc">
+              Configuracoes para controle de lotes e datas de validade.
+              Recomendado para medicamentos, dermocosmeticos e produtos pereciveis.
+            </p>
+            <ul class="field-list amber">
+              <li><strong>Controla Vencimento</strong> &mdash; Ative esta opcao para habilitar o controle de lotes e datas de validade no produto.</li>
+              <li><strong>Dias de Aviso Antecipado</strong> &mdash; Quantos dias antes do vencimento o sistema deve emitir alerta de proximidade de validade.</li>
+              <li><strong>Lotes Cadastrados</strong> &mdash; Lista os lotes registrados no sistema com suas respectivas datas de validade e quantidades.</li>
+            </ul>
+            <div class="callout callout-amber">
+              <span class="callout-icon">&#x23F0;</span>
+              <div>
+                <strong>Importante:</strong> Para medicamentos controlados e produtos com prazo de
+                validade critico, recomenda-se sempre ativar o controle de vencimento e definir
+                um aviso antecipado minimo de 30 dias.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 5: FORNECEDORES -->
+        <div class="aba-card">
+          <div class="aba-header neutral-bg">
+            <span class="aba-num">5</span>
+            <h3>Fornecedores</h3>
+          </div>
+          <div class="aba-body">
+            <p class="aba-desc">
+              Vinculo do produto com um ou mais fornecedores cadastrados no sistema.
+              Essencial para pedidos de compra e rastreabilidade de origem.
+            </p>
+            <ul class="field-list">
+              <li><strong>Adicionar Fornecedor</strong> &mdash; Selecione o fornecedor na lista de fornecedores cadastrados e associe ao produto.</li>
+              <li><strong>Codigo do Produto no Fornecedor</strong> &mdash; Codigo utilizado pelo fornecedor para identificar o produto (util no processo de compra).</li>
+              <li><strong>Preco de Compra do Fornecedor</strong> &mdash; Valor de aquisicao praticado por cada fornecedor vinculado.</li>
+              <li><strong>Fornecedor Principal</strong> &mdash; Marque o fornecedor preferencial para este produto nas cotacoes e pedidos automaticos.</li>
+            </ul>
+            <div class="tip">
+              <strong>Dica:</strong> Um produto pode ter varios fornecedores vinculados,
+              permitindo comparar precos e escolher a melhor opcao no momento da compra.
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 6: PRODUTOS DO KIT -->
+        <div class="aba-card">
+          <div class="aba-header purple-bg">
+            <span class="aba-num">6</span>
+            <h3>Produtos do Kit</h3>
+          </div>
+          <div class="aba-body">
+            <p class="aba-desc">
+              Aba utilizada exclusivamente para produtos do tipo <strong>Kit</strong> ou
+              <strong>Conjunto</strong>, que sao compostos por outros produtos cadastrados
+              individualmente no sistema.
+            </p>
+            <ul class="field-list purple">
+              <li><strong>Adicionar Item ao Kit</strong> &mdash; Selecione o produto componente e informe a quantidade que faz parte deste kit.</li>
+              <li><strong>Quantidade do Componente</strong> &mdash; Numero de unidades de cada item que compoem o kit.</li>
+              <li><strong>Preco Unitario do Componente</strong> &mdash; Valor de cada produto dentro do kit (calculado automaticamente ou ajustado manualmente).</li>
+            </ul>
+            <div class="callout callout-teal">
+              <span class="callout-icon">&#x1F4E6;</span>
+              <div>
+                <strong>Exemplo:</strong> Um kit de primeiros socorros pode ser composto por
+                curativo, esparadrapo e antisseptico. Ao vender o kit no PDV, o sistema
+                baixa automaticamente o estoque de cada componente.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /aba-grid -->
+    </div><!-- /section -->
+
+    <!-- COMO EDITAR UM PRODUTO -->
+    <div class="section">
+      <div class="section-title">Como editar um produto existente</div>
+      <p class="intro-text">
+        Para alterar as informacoes de um produto ja cadastrado, siga os passos abaixo:
+      </p>
+      <ol class="step-list">
+        <li>
+          <div class="step-text">
+            Acesse <em>Cadastros &rsaquo; Estoque &rsaquo; Produto</em> na Retaguarda.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Na listagem, localize o produto pelo nome, codigo de barras ou grupo.
+            Clique sobre o produto desejado para abrir o cadastro.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Navegue ate a aba que contem o campo que deseja alterar
+            (ex.: aba <em>Dados Cadastrais</em> para mudar o preco, aba <em>Dados Fiscais</em>
+            para corrigir o NCM).
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Realize as alteracoes necessarias e clique em <em>Salvar</em> (ou <em>Gravar</em>).
+            As mudancas entram em vigor imediatamente no PDV apos a gravacao.
+          </div>
+        </li>
+      </ol>
+
+      <div class="edit-card">
+        <div class="edit-card-title">&#x1F4CB; Campos que impactam o PDV imediatamente apos salvar</div>
+        <ul class="field-list blue" style="margin-top:0;">
+          <li><strong>Preco de Venda</strong> &mdash; Atualizado no PDV na proxima consulta ao produto.</li>
+          <li><strong>PMC</strong> &mdash; O caixa sera alertado se tentar vender acima do PMC.</li>
+          <li><strong>Promocao (R$)</strong> &mdash; O PDV aplica automaticamente o desconto enquanto o campo estiver preenchido.</li>
+          <li><strong>Estoque Minimo</strong> &mdash; Alerta de reposicao ativado quando o estoque cair abaixo deste valor.</li>
+          <li><strong>Dados Fiscais (NCM, CST)</strong> &mdash; Aplicados na proxima emissao de NF-e ou NFC-e pelo produto.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DICAS E OBSERVACOES -->
+    <div class="section">
+      <div class="section-title">Dicas e observacoes importantes</div>
+
+      <div class="callout callout-amber" style="margin-top:0;">
+        <span class="callout-icon">&#x26A0;</span>
+        <div>
+          <strong>PMC (Preco Maximo ao Consumidor):</strong> Para medicamentos que possuem preco
+          tabelado pela ANVISA, o campo PMC deve ser preenchido corretamente. O Tecfarma
+          <em>bloqueia ou alerta</em> quando o preco de venda ultrapassa o PMC, evitando
+          irregularidades na venda.
+        </div>
+      </div>
+
+      <div class="callout callout-green" style="margin-top:.75rem;">
+        <span class="callout-icon">&#x1F4B0;</span>
+        <div>
+          <strong>Campo Promocao (R$):</strong> Informe o preco promocional neste campo para
+          que o PDV aplique automaticamente o desconto ao produto. Para encerrar a promocao,
+          basta apagar o valor e salvar. Nao e necessario mexer no Preco de Venda original.
+        </div>
+      </div>
+
+      <div class="callout callout-teal" style="margin-top:.75rem;">
+        <span class="callout-icon">&#x1F4CA;</span>
+        <div>
+          <strong>Dados Fiscais e emissao de notas:</strong> O <em>NCM</em> e o <em>CST</em>
+          incorretos sao as principais causas de rejeicao de NF-e e NFC-e pela SEFAZ.
+          Sempre verifique com o contador as informacoes fiscais antes de cadastrar um produto novo,
+          especialmente medicamentos e produtos sujeitos a Substituicao Tributaria (ST).
+        </div>
+      </div>
+
+      <div class="callout callout-green" style="margin-top:.75rem;">
+        <span class="callout-icon">&#x1F4E6;</span>
+        <div>
+          <strong>Estoque zerado ou negativo:</strong> O sistema pode permitir vendas mesmo com
+          estoque zerado dependendo da configuracao. Para evitar vendas sem cobertura de estoque,
+          habilite o bloqueio de venda com estoque negativo nas configuracoes do PDV junto ao
+          administrador do sistema.
+        </div>
+      </div>
+
+      <div class="tip" style="margin-top:.75rem;">
+        <strong>Codigo de Barras:</strong> Se o produto nao tiver EAN impresso na embalagem,
+        voce pode cadastrar um codigo interno. Use o prefixo <em>2</em> seguido de digitos
+        para evitar conflito com codigos EAN comerciais validos.
+      </div>
+
+      <div class="tip">
+        <strong>Produto do tipo Kit:</strong> Antes de cadastrar um kit, certifique-se de que
+        todos os produtos componentes ja estao cadastrados individualmente no sistema.
+        O kit nao pode ser criado com componentes inexistentes.
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="doc-footer">
+      <div>Develon Tecnologia &middot; Tecfarma</div>
+      <div>Documentacao de uso interno &mdash; Retaguarda do Sistema</div>
+      <div style="margin-top:.35rem;font-size:.72rem;">
+        Para suporte, entre em contato com a equipe de atendimento Develon Tecnologia.
+      </div>
+    </div>
+
+  </div><!-- /page-wrap -->
+</body>
+</html>
