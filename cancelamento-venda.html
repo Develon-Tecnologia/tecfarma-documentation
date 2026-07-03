@@ -426,9 +426,11 @@
         A regra é imposta pela <strong>SEFAZ</strong> e não pode ser alterada manualmente:
       </p>
       <p class="intro-text">
-        &bull; <strong>Até&nbsp;30&nbsp;minutos</strong> após a venda &rarr; é possível realizar o
+        &bull; <strong>Venda do dia atual (hoje)</strong> realizada
+        <strong>há menos de 30&nbsp;minutos</strong> &rarr; é possível realizar o
         <em>cancelamento do cupom NFC-e</em> diretamente na SEFAZ (evento de cancelamento).<br>
-        &bull; <strong>Mais de&nbsp;30&nbsp;minutos</strong> após a venda &rarr; o cupom NFC-e
+        &bull; Nos demais casos &mdash; venda de <strong>dia anterior</strong>
+        <em>ou</em> realizada <strong>há mais de 30&nbsp;minutos</strong> &rarr; o cupom NFC-e
         <em>não pode mais ser cancelado</em>; o sistema conduz à emissão de uma
         <em>NF-e de devolução de venda</em> (modelo&nbsp;55), que devolve os itens ao estoque.
       </p>
@@ -440,7 +442,7 @@
       <!-- DIAGRAMA DE DECISÃO -->
       <div class="diagram-wrap">
         <div class="d-center-v">
-          <div class="d-box d-question">A venda tem menos de 30 minutos?</div>
+          <div class="d-box d-question">A venda é de HOJE e tem menos de 30 minutos?</div>
           <div class="d-arrow-v"></div>
           <div class="d-row" style="width:100%;justify-content:center;">
             <!-- Linha horizontal saindo para os dois lados -->
@@ -514,11 +516,12 @@
       <div class="detail-header detail-header-a">
         <div style="font-size:1.4rem;">&#x26A1;</div>
         <h2>Caminho A &mdash; Cancelamento Rápido</h2>
-        <span class="badge">&le;&nbsp;30 minutos após a venda</span>
+        <span class="badge">hoje &amp; &le;&nbsp;30 minutos</span>
       </div>
       <div class="detail-body detail-body-a">
         <p style="font-size:.93rem;color:var(--neutral-700);margin-bottom:1.1rem;">
-          Use este caminho quando a venda foi realizada <strong>há menos de 30 minutos</strong>.
+          Use este caminho quando a venda foi realizada <strong>no dia atual (hoje)</strong> e
+          <strong>há menos de 30 minutos</strong>.
           O sistema realiza o cancelamento do cupom NFC-e diretamente na SEFAZ via evento de cancelamento.
         </p>
         <ol class="step-list">
@@ -530,8 +533,9 @@
           </li>
           <li>
             <div class="step-text">
-              O sistema identifica que a venda está dentro do prazo de 30 minutos e inicia
-              o processo de <em>cancelamento do cupom NFC-e</em> (evento de cancelamento junto à SEFAZ).
+              O sistema verifica que a venda pertence ao <em>dia de hoje</em> e está dentro do
+              prazo de 30 minutos, e então inicia o processo de
+              <em>cancelamento do cupom NFC-e</em> (evento de cancelamento junto à SEFAZ).
             </div>
           </li>
           <li>
@@ -561,10 +565,24 @@
         <div class="callout callout-amber">
           <span class="callout-icon">&#x26A0;</span>
           <div>
-            <strong>Atenção &mdash; prazo SEFAZ:</strong> o limite de 30 minutos para cancelamento
-            da NFC-e é uma regra federal da SEFAZ e <em>não pode ser prorrogado pelo sistema</em>.
-            Após esse prazo, utilize obrigatoriamente o <strong>Caminho B</strong>
+            <strong>Atenção &mdash; duas condições obrigatórias:</strong> o sistema exige que a venda
+            seja <em>do dia atual</em> (data de cadastro igual à data de hoje) <strong>e</strong> tenha
+            sido realizada <em>há menos de 30 minutos</em>. Basta uma das condições não ser atendida
+            para o sistema redirecionar obrigatoriamente ao <strong>Caminho B</strong>
             (NF-e de Devolução).
+          </div>
+        </div>
+
+        <div class="callout callout-amber" style="margin-top:.75rem;">
+          <span class="callout-icon">&#x1F319;</span>
+          <div>
+            <strong>Atenção &mdash; virada de meia-noite:</strong> vendas realizadas
+            <em>pouco antes de meia-noite</em> podem estar dentro do prazo de 30 minutos
+            e mesmo assim ser bloqueadas do cancelamento rápido. Isso ocorre porque, após a
+            virada do dia, a data da venda passa a ser o <em>dia anterior</em> &mdash;
+            não correspondendo mais ao dia de hoje. Nesse caso, o sistema direcionará
+            automaticamente ao <strong>Caminho B</strong> (NF-e de Devolução),
+            mesmo que o tempo decorrido seja inferior a 30 minutos.
           </div>
         </div>
       </div>
@@ -647,11 +665,13 @@
           <div class="path-card-header">
             <div class="path-card-icon">&#x26A1;</div>
             <div>
-              <span class="path-badge badge-green">&le; 30 min</span><br>
+              <span class="path-badge badge-green">hoje &amp; &le; 30 min</span><br>
               <span class="path-card-title">Caminho A &mdash; Cancelamento Rápido</span>
             </div>
           </div>
           <ul style="list-style:none;font-size:.88rem;color:var(--neutral-700);line-height:1.8;padding:0;">
+            <li>&#x2714; Venda do <strong>dia atual (hoje)</strong> obrigatoriamente</li>
+            <li>&#x2714; Emitida há <strong>menos de 30 minutos</strong></li>
             <li>&#x2714; Cancela o cupom <strong>NFC-e</strong> diretamente</li>
             <li>&#x2714; Evento de cancelamento enviado à SEFAZ</li>
             <li>&#x2714; Justificativa obrigatória (mín. de caracteres)</li>
@@ -684,7 +704,8 @@
           <strong>Ponto de partida é sempre o mesmo:</strong>
           <em>Relatórios &rsaquo; Vendas &rsaquo; Rastrear Vendas</em>.
           Selecione a venda na lista e clique em <strong>Cancelar Venda</strong> &mdash;
-          o sistema determina automaticamente qual caminho seguir com base no tempo decorrido.
+          o sistema determina automaticamente qual caminho seguir com base na
+          <strong>data da venda</strong> e no <strong>tempo decorrido</strong>.
         </div>
       </div>
     </div>
