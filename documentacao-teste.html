@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tecfarma - Documentação de Teste</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f4f7f5;
+      color: #1a2e22;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+    :root {
+      --green-dark:   #1a6b3c;
+      --green-mid:    #2a8a50;
+      --green-light:  #e8f5ed;
+      --green-border: #b2dfc1;
+      --teal:         #17a398;
+      --teal-light:   #e6f7f6;
+      --blue-dark:    #1c4f82;
+      --blue-mid:     #2b6cb0;
+      --blue-light:   #ebf2fa;
+      --blue-border:  #90c3e8;
+      --amber:        #b45309;
+      --amber-light:  #fffbeb;
+      --neutral-100:  #f8faf9;
+      --neutral-200:  #e9eeeb;
+      --neutral-400:  #9aada0;
+      --neutral-700:  #3d5244;
+      --neutral-900:  #1a2e22;
+      --white:        #ffffff;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08);
+      --radius:       10px;
+    }
+    .top-banner {
+      background: linear-gradient(135deg, #0a7d53 0%, #17a398 100%);
+      color: #ffffff;
+      padding: 2.25rem 1.25rem 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .top-banner-inner { max-width: 900px; margin: 0 auto; }
+    .top-banner h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: .35rem;
+    }
+    .top-banner p { font-size: .95rem; opacity: .88; }
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 999px;
+      padding: .3rem .9rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #d4efdf;
+    }
+    .breadcrumb span { opacity: .7; }
+    .section {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a6b3c;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: #2a8a50;
+      border-radius: 2px;
+    }
+    .intro-text { font-size: 1rem; color: #3d5244; margin-bottom: .75rem; }
+    .callout {
+      border-radius: 8px;
+      padding: .85rem 1.1rem;
+      margin-top: 1.1rem;
+      display: flex;
+      gap: .65rem;
+      align-items: flex-start;
+      font-size: .88rem;
+    }
+    .callout-green { background: #e8f5ed; border-left: 4px solid #2a8a50; color: #14532d; }
+    .callout-teal  { background: #e6f7f6; border-left: 4px solid #17a398; color: #164e4a; }
+    .callout-blue  { background: #ebf2fa; border-left: 4px solid #2b6cb0; color: #1e3a5f; }
+    .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
+    .callout strong { font-weight: 700; }
+    .step-list {
+      list-style: none;
+      counter-reset: step-ctr;
+      margin-top: .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+    .step-list li {
+      counter-increment: step-ctr;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-list li::before {
+      content: counter(step-ctr);
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: #1a6b3c;
+      color: #ffffff;
+      font-size: .85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: .05rem;
+    }
+    .step-list li .step-text { flex: 1; font-size: .97rem; color: #3d5244; }
+    .step-list li .step-text em { font-style: normal; font-weight: 700; color: #1a2e22; }
+    .doc-footer {
+      border-top: 1px solid #e9eeeb;
+      padding-top: 1.25rem; margin-top: 2rem;
+      font-size: .8rem; color: #9aada0;
+      text-align: center; line-height: 1.7;
+    }
+    @media print {
+      body { background: #fff; }
+      .top-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <div class="top-banner-inner">
+      <div class="breadcrumb">
+        <span>Recursos</span>
+        <span>&rsaquo;</span>
+        <span style="color:#fff;opacity:1;">Testes</span>
+      </div>
+      <h1>Documentação de Teste</h1>
+      <p>Página de teste do pipeline de documentação do Tecfarma</p>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- OBJETIVO -->
+    <div class="section">
+      <div class="section-title">Objetivo</div>
+      <p class="intro-text">
+        Esta página de documentação foi criada para validar o <strong>pipeline de publicação</strong>
+        do repositório <em>tecfarma-documentation</em> no GitHub Pages.
+      </p>
+      <p class="intro-text">
+        Serve como verificação funcional de que as mudanças realizadas no repositório são
+        corretamente sincronizadas e publicadas no endereço público, garantindo que a
+        documentação esteja sempre atualizada.
+      </p>
+      <div class="callout callout-green">
+        <span class="callout-icon">&#x2713;</span>
+        <div>
+          <strong>Status:</strong> Esta página foi gerada em <strong>15 de julho de 2026</strong>
+          como parte da validação do sistema de documentação.
+        </div>
+      </div>
+    </div>
+
+    <!-- COMO FUNCIONA A PUBLICACAO -->
+    <div class="section">
+      <div class="section-title">Como funciona a publicação</div>
+      <p class="intro-text">
+        A documentação do Tecfarma é gerenciada por meio de um repositório Git público
+        com integração ao GitHub Pages. Siga o fluxo abaixo:
+      </p>
+      <ol class="step-list">
+        <li>
+          <div class="step-text">
+            Um novo arquivo <em>.html</em> é criado no repositório
+            <em>tecfarma-documentation</em> seguindo o padrão de nomenclatura
+            e estilo definido pela equipe.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            A mudança é feita commit e enviada (push) ao repositório remoto
+            no branch principal (main ou master).
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            O GitHub Pages detecta automaticamente a mudança e publica o
+            arquivo no endereço público: <em>https://develon-tecnologia.github.io/tecfarma-documentation/</em>
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            O arquivo fica acessível imediatamente (pode levar alguns segundos).
+            Qualquer cliente ou usuário pode consultar a documentação sem necessidade
+            de autenticação.
+          </div>
+        </li>
+      </ol>
+      <div class="callout callout-teal">
+        <span class="callout-icon">&#x1F4CB;</span>
+        <div>
+          <strong>Padrão de URLs:</strong> Cada arquivo <em>nome-da-pagina.html</em>
+          no repositório é publicado como
+          <em>https://develon-tecnologia.github.io/tecfarma-documentation/nome-da-pagina.html</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTATO E SUPORTE -->
+    <div class="section">
+      <div class="section-title">Contato e Suporte</div>
+      <p class="intro-text">
+        Em caso de dúvidas sobre a documentação, erros nas instruções ou sugestões
+        de melhorias, entre em contato com a equipe de desenvolvimento:
+      </p>
+      <ol class="step-list">
+        <li>
+          <div class="step-text">
+            <em>Email de suporte:</em> suporte@develon.com.br
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            <em>Repositório público:</em>
+            <a href="https://github.com/Develon-Tecnologia/tecfarma-documentation" target="_blank"
+               style="color:#1a6b3c;text-decoration:underline;">
+              github.com/Develon-Tecnologia/tecfarma-documentation
+            </a>
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            <em>Documentação online:</em>
+            <a href="https://develon-tecnologia.github.io/tecfarma-documentation/" target="_blank"
+               style="color:#1a6b3c;text-decoration:underline;">
+              https://develon-tecnologia.github.io/tecfarma-documentation/
+            </a>
+          </div>
+        </li>
+      </ol>
+      <div class="callout callout-blue">
+        <span class="callout-icon">&#x2139;</span>
+        <div>
+          <strong>Para relatar bugs:</strong> Abra uma issue no repositório GitHub
+          indicando o problema encontrado, prints se necessário, e passos para reproduzir.
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="doc-footer">
+      <div>Develon Tecnologia &middot; Tecfarma</div>
+      <div>Página de teste — 2026-07-15</div>
+      <div style="margin-top:.35rem;font-size:.72rem;">
+        Publicado via GitHub Pages
+      </div>
+    </div>
+
+  </div><!-- /page-wrap -->
+</body>
+</html>
