@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correção de Inconsistências na NFC-e — Tecfarma</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f4f7f5;
+      color: #1a2e22;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+    :root {
+      --green-dark:   #1a6b3c;
+      --green-mid:    #2a8a50;
+      --green-light:  #e8f5ed;
+      --green-border: #b2dfc1;
+      --teal:         #17a398;
+      --teal-light:   #e6f7f6;
+      --blue-dark:    #1c4f82;
+      --blue-mid:     #2b6cb0;
+      --blue-light:   #ebf2fa;
+      --blue-border:  #90c3e8;
+      --amber:        #b45309;
+      --amber-light:  #fffbeb;
+      --amber-border: #fcd34d;
+      --red-light:    #fef2f2;
+      --red-border:   #fca5a5;
+      --red-dark:     #991b1b;
+      --neutral-100:  #f8faf9;
+      --neutral-200:  #e9eeeb;
+      --neutral-400:  #9aada0;
+      --neutral-700:  #3d5244;
+      --neutral-900:  #1a2e22;
+      --white:        #ffffff;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08);
+      --radius:       10px;
+    }
+
+    /* === BANNER === */
+    .top-banner {
+      background: linear-gradient(135deg, #1a6b3c 0%, #17a398 100%);
+      color: #ffffff;
+      padding: 2.25rem 1.25rem 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .top-banner-inner { max-width: 900px; margin: 0 auto; }
+    .top-banner h1 {
+      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: .35rem;
+    }
+    .top-banner p { font-size: .95rem; opacity: .88; }
+
+    /* === BREADCRUMB === */
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 999px;
+      padding: .3rem .9rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #d4efdf;
+    }
+    .breadcrumb span { opacity: .7; }
+
+    /* === SECTION === */
+    .section {
+      background: #ffffff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: var(--green-mid);
+      border-radius: 2px;
+    }
+
+    /* === TYPOGRAPHY === */
+    .intro-text { font-size: 1rem; color: var(--neutral-700); margin-bottom: .75rem; }
+    .intro-text:last-child { margin-bottom: 0; }
+    p + p { margin-top: .65rem; }
+    strong { color: var(--neutral-900); }
+
+    /* === CALLOUTS === */
+    .callout {
+      border-radius: 8px;
+      padding: .85rem 1.1rem;
+      margin-top: 1.1rem;
+      display: flex;
+      gap: .65rem;
+      align-items: flex-start;
+      font-size: .88rem;
+    }
+    .callout-green  { background: var(--green-light);  border-left: 4px solid var(--green-mid);  color: #14532d; }
+    .callout-teal   { background: var(--teal-light);   border-left: 4px solid var(--teal);       color: #134e4a; }
+    .callout-blue   { background: var(--blue-light);   border-left: 4px solid var(--blue-mid);   color: #1e3a5f; }
+    .callout-amber  { background: var(--amber-light);  border-left: 4px solid #f59e0b;           color: #78350f; }
+    .callout-red    { background: var(--red-light);    border-left: 4px solid #ef4444;           color: var(--red-dark); }
+    .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
+    .callout strong { font-weight: 700; }
+
+    /* === STEP LIST === */
+    .step-list {
+      list-style: none;
+      counter-reset: step-ctr;
+      margin-top: .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+    .step-list li {
+      counter-increment: step-ctr;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-list li::before {
+      content: counter(step-ctr);
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #ffffff;
+      font-size: .85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: .05rem;
+    }
+    .step-list li .step-text { flex: 1; font-size: .97rem; color: var(--neutral-700); }
+    .step-list li .step-text em { font-style: normal; font-weight: 700; color: var(--neutral-900); }
+
+    /* === BULLET LIST === */
+    .bullet-list {
+      list-style: none;
+      margin-top: .6rem;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .bullet-list li {
+      display: flex;
+      gap: .6rem;
+      align-items: flex-start;
+      font-size: .97rem;
+      color: var(--neutral-700);
+    }
+    .bullet-list li::before {
+      content: "▸";
+      color: var(--green-mid);
+      font-size: .9rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    /* === CONFIG BOX === */
+    .config-box {
+      background: var(--neutral-100);
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      margin-top: 1rem;
+    }
+    .config-key {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      background: var(--green-light);
+      border: 1px solid var(--green-border);
+      border-radius: 4px;
+      padding: .15rem .45rem;
+      display: inline-block;
+      margin-bottom: .5rem;
+    }
+    .config-desc {
+      font-size: .88rem;
+      color: var(--neutral-700);
+      font-style: italic;
+      margin-bottom: .75rem;
+    }
+    .config-values {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: .75rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      border-radius: 999px;
+      padding: .25rem .75rem;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .badge-green { background: var(--green-light); color: var(--green-dark); border: 1px solid var(--green-border); }
+    .badge-red   { background: var(--red-light);   color: var(--red-dark);   border: 1px solid var(--red-border); }
+    .badge-blue  { background: var(--blue-light);  color: var(--blue-dark);  border: 1px solid var(--blue-border); }
+
+    /* === PATH TRAIL === */
+    .path-trail {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .25rem;
+      background: var(--neutral-100);
+      border: 1px solid var(--neutral-200);
+      border-radius: 6px;
+      padding: .4rem .75rem;
+      font-size: .84rem;
+      color: var(--neutral-700);
+      margin-top: .5rem;
+    }
+    .path-trail .arrow { color: var(--neutral-400); }
+    .path-trail .last  { font-weight: 700; color: var(--green-dark); }
+
+    /* === TABLE === */
+    .fiscal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin-top: .75rem;
+    }
+    .fiscal-table th {
+      background: var(--green-dark);
+      color: #ffffff;
+      text-align: left;
+      padding: .6rem .85rem;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .fiscal-table th:first-child { border-radius: 8px 0 0 0; }
+    .fiscal-table th:last-child  { border-radius: 0 8px 0 0; }
+    .fiscal-table td {
+      padding: .55rem .85rem;
+      border-bottom: 1px solid var(--neutral-200);
+      color: var(--neutral-700);
+    }
+    .fiscal-table tr:last-child td { border-bottom: none; }
+    .fiscal-table tr:nth-child(even) td { background: var(--neutral-100); }
+    .fiscal-table td:first-child { font-family: 'Courier New', Courier, monospace; font-weight: 700; color: var(--green-dark); }
+
+    /* === EFFECTS LIST (numbered sub-items) === */
+    .effects-list {
+      list-style: none;
+      counter-reset: eff-ctr;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      margin-top: .75rem;
+    }
+    .effects-list li {
+      counter-increment: eff-ctr;
+      display: flex;
+      gap: .75rem;
+      align-items: flex-start;
+      font-size: .95rem;
+      color: var(--neutral-700);
+    }
+    .effects-list li::before {
+      content: counter(eff-ctr, lower-alpha) ".";
+      flex-shrink: 0;
+      font-weight: 800;
+      color: var(--teal);
+      font-size: .95rem;
+      width: 1.3rem;
+      margin-top: .02rem;
+    }
+
+    /* === FOOTER === */
+    .doc-footer {
+      border-top: 1px solid var(--neutral-200);
+      padding-top: 1.25rem;
+      margin-top: 2rem;
+      font-size: .8rem;
+      color: var(--neutral-400);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .ticket-ref {
+      display: inline-flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: .35rem;
+    }
+    .ticket {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      border: 1px solid var(--blue-border);
+      border-radius: 4px;
+      padding: .1rem .45rem;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .section { padding: 1.25rem 1.1rem; }
+      .config-values { flex-direction: column; }
+    }
+    @media print {
+      body { background: #fff; }
+      .top-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <div class="top-banner-inner">
+      <div class="breadcrumb">
+        <span>NFC-e</span>
+        <span>&rsaquo;</span>
+        <span style="color:#fff;opacity:1;">Correção de Inconsistências</span>
+      </div>
+      <h1>Correção de Inconsistências na NFC-e</h1>
+      <p>Guia de configuração e uso para a equipe de suporte — Tecfarma Retaguarda e PDV</p>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- ===== O QUE É ===== -->
+    <div class="section">
+      <div class="section-title">O que é</div>
+      <p class="intro-text">
+        O Tecfarma possui um mecanismo de <strong>correção automática de inconsistências de NFC-e</strong>
+        que identifica e tenta corrigir três cenários problemáticos:
+      </p>
+      <ul class="bullet-list">
+        <li>Chaves de NFC-e <strong>sem protocolo de autorização vinculado</strong> — a nota foi gerada mas não retornou da SEFAZ com protocolo.</li>
+        <li><strong>XML divergente</strong> — o XML armazenado localmente não corresponde ao registrado na SEFAZ.</li>
+        <li>Notas que constam como <strong>transmitidas no sistema</strong> mas não existem na base da SEFAZ (nota fantasma).</li>
+      </ul>
+      <div class="callout callout-teal">
+        <span class="callout-icon">&#x1F504;</span>
+        <div>
+          <strong>Dois pontos de execução:</strong> a correção roda automaticamente
+          <em>em segundo plano no PDV</em> após a emissão, e também pode ser acionada
+          manualmente pela equipe de suporte através da ferramenta <strong>Sincronizar</strong>
+          no relatório de <em>Histórico de NFC-e</em> na Retaguarda.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONFIGURAÇÃO ===== -->
+    <div class="section">
+      <div class="section-title">Configuração que habilita o recurso</div>
+      <p class="intro-text">
+        O recurso é <strong>desativado por padrão</strong> e deve ser habilitado individualmente
+        por farmácia. A chave de configuração fica em:
+      </p>
+      <div class="path-trail">
+        <span>Retaguarda</span>
+        <span class="arrow">›</span>
+        <span>Cadastro</span>
+        <span class="arrow">›</span>
+        <span class="last">Configuração (Farmácia)</span>
+      </div>
+
+      <div class="config-box">
+        <div class="config-key">CONFIGURACAO_APLICATIVO_VENDA_CORRECAOINSCONSISTENCIAS</div>
+        <div class="config-desc">
+          "DEFINE SE INCONSISTENCIAS NA VENDA SERAO CORRIGIDAS AUTOMATICAMENTE OU NAO. VALOR PADRAO NAO."
+        </div>
+        <div class="config-values">
+          <span class="badge badge-green">&#x2713;&nbsp; SIM — ativado</span>
+          <span class="badge badge-red">&#x2715;&nbsp; NAO — desativado (padrão)</span>
+        </div>
+      </div>
+
+      <p class="intro-text" style="margin-top:1rem;">
+        Com o valor definido como <strong>SIM</strong>, os seguintes comportamentos são habilitados:
+      </p>
+      <ol class="effects-list">
+        <li>
+          <strong>Correção pós-emissão no PDV:</strong> após cada venda finalizada, o sistema
+          verifica em segundo plano se a NFC-e emitida possui protocolo de autorização e
+          tenta corrigi-la automaticamente caso não tenha.
+        </li>
+        <li>
+          <strong>Transmissão de contingências limitada:</strong> o envio de NFC-e em contingência
+          na abertura de venda é executado no máximo <em>1 vez por dia</em>, evitando reprocessamentos
+          excessivos.
+        </li>
+        <li>
+          <strong>Ferramenta Sincronizar habilitada para recriar XML:</strong> na Retaguarda, a
+          Sincronização de Histórico de NFC-e passa a ter permissão para recriar o XML das notas
+          sem protocolo (funcionalidade relacionada ao TEC-2092).
+        </li>
+      </ol>
+
+      <div class="callout callout-amber">
+        <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+        <div>
+          <strong>Opt-in por farmácia:</strong> como o padrão é NAO, cada unidade precisa ser
+          configurada individualmente. Confirme com o cliente se o recurso foi solicitado antes
+          de ativar.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FERRAMENTA SINCRONIZAR ===== -->
+    <div class="section">
+      <div class="section-title">Ferramenta Sincronizar — uso pelo suporte</div>
+      <p class="intro-text">
+        A ferramenta de Sincronização permite que a equipe de suporte force a correção de um
+        período específico. Siga o passo a passo:
+      </p>
+      <ol class="step-list">
+        <li>
+          <div class="step-text">
+            Acesse a Retaguarda e vá em <em>Relatórios → Histórico de NFC-e</em>.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Selecione o <em>período desejado</em> (data inicial e final) que contém as notas
+            com inconsistência.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Clique no botão <em>Sincronizar</em> e aguarde o processamento.
+          </div>
+        </li>
+        <li>
+          <div class="step-text">
+            Verifique o resultado: somente as NFC-e <em>sem protocolo de autorização</em>
+            são processadas — notas já autorizadas são ignoradas e não geram alerta no log.
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout callout-amber">
+        <span class="callout-icon">&#x1F511;</span>
+        <div>
+          <strong>Mudança de chave de acesso:</strong> após a correção, a chave de acesso
+          de uma nota corrigida <em>pode ser alterada</em>. A chave antiga é substituída pela
+          nova, inclusive na URL do XML armazenado. Oriente o cliente a não usar a chave antiga
+          para consultas fiscais após a sincronização.
+        </div>
+      </div>
+
+      <div class="callout callout-green">
+        <span class="callout-icon">&#x2139;</span>
+        <div>
+          <strong>NFC-e já autorizadas são preservadas:</strong> o processo não toca em notas
+          que já possuem protocolo vinculado — apenas as notas sem protocolo entram no fluxo
+          de correção.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRÉ-REQUISITO: DADOS FISCAIS ===== -->
+    <div class="section">
+      <div class="section-title">Pré-requisito: dados fiscais do produto corretos</div>
+      <p class="intro-text">
+        A recriação do XML utiliza os <strong>dados fiscais de venda NFC-e</strong> cadastrados
+        no produto. Se esses dados estiverem incorretos, a SEFAZ rejeitará o XML e a correção
+        não será concluída.
+      </p>
+      <div class="path-trail">
+        <span>Retaguarda</span>
+        <span class="arrow">›</span>
+        <span>Cadastro</span>
+        <span class="arrow">›</span>
+        <span>Produto</span>
+        <span class="arrow">›</span>
+        <span class="last">Aba NF-C-e</span>
+      </div>
+
+      <p class="intro-text" style="margin-top:1rem;">
+        Os campos que devem estar corretos na aba NF-C-e do produto:
+      </p>
+      <ul class="bullet-list">
+        <li><strong>ALIQ ICMS</strong> — alíquota de ICMS aplicável ao produto.</li>
+        <li><strong>CST / CSOSN</strong> — código de situação tributária, coerente com o regime fiscal da farmácia.</li>
+        <li><strong>CFOP</strong> — código de operação, deve ser compatível com o CST/CSOSN informado (veja tabela abaixo).</li>
+        <li><strong>Código NCM</strong> — de 4 a 8 dígitos, obrigatório para Apuração de ICMS ST.</li>
+        <li><strong>Código CEST</strong> — 6 dígitos, obrigatório quando o produto está sujeito à substituição tributária.</li>
+        <li><strong>Alíquotas de ICMS ST</strong> — alíquota interna e interestadual para cálculo de ST.</li>
+      </ul>
+
+      <p class="intro-text" style="margin-top:1rem;">
+        A tela de cadastro exibe a tabela de referência CST/CSOSN × CFOP. Os casos mais comuns:
+      </p>
+      <table class="fiscal-table">
+        <thead>
+          <tr>
+            <th>CST / CSOSN</th>
+            <th>Situação</th>
+            <th>CFOP esperado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>X60</td>
+            <td>ICMS cobrado anteriormente por ST (Substituição Tributária)</td>
+            <td>5405</td>
+          </tr>
+          <tr>
+            <td>X00</td>
+            <td>Tributada integralmente</td>
+            <td>5102</td>
+          </tr>
+          <tr>
+            <td>X40</td>
+            <td>Isenta / não tributada (Simples ou Isento)</td>
+            <td>5102</td>
+          </tr>
+          <tr>
+            <td>X10</td>
+            <td>Tributada com ST — produto sujeito a ST na saída</td>
+            <td>5401 / 5403</td>
+          </tr>
+          <tr>
+            <td>X30</td>
+            <td>Isenta com ST</td>
+            <td>5405</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-red">
+        <span class="callout-icon">&#x26D4;</span>
+        <div>
+          <strong>Dados incorretos bloqueiam a correção:</strong> CST e CFOP incompatíveis,
+          NCM inválido ou CEST ausente geram rejeição pela SEFAZ (ex.: rejeição 558, 310, 365).
+          Oriente o cliente a <strong>consultar a contabilidade</strong> para confirmar os
+          códigos corretos antes de executar a Sincronização.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BOAS PRÁTICAS ===== -->
+    <div class="section">
+      <div class="section-title">Boas práticas e avisos</div>
+      <ul class="bullet-list">
+        <li>
+          <strong>Ative com consciência:</strong> o padrão é NAO. Ative somente quando o cliente
+          relatou problema real de inconsistência ou quando orientado pelo time fiscal/técnico.
+        </li>
+        <li>
+          <strong>Confira o SINTEGRA/SPED do período:</strong> após executar a Sincronização,
+          oriente o cliente a gerar novamente os arquivos fiscais do período corrigido, pois
+          as chaves alteradas precisam constar nos registros atualizados.
+        </li>
+        <li>
+          <strong>Dúvida sobre uma chave específica:</strong> consulte a validade da chave
+          diretamente no portal da SEFAZ do estado do cliente ou no site do SPED Fiscal antes
+          de concluir que há inconsistência.
+        </li>
+        <li>
+          <strong>Não execute a Sincronização sem a configuração ativada:</strong> com o valor
+          NAO, o processo roda mas não recria o XML — apenas consulta status. A recriação
+          só ocorre com SIM habilitado (TEC-2092).
+        </li>
+        <li>
+          <strong>Comunique o cliente:</strong> a troca de chave de acesso pode afetar relatórios
+          internos do cliente. Informe antes de executar a Sincronização em períodos com muitas
+          notas.
+        </li>
+      </ul>
+
+      <div class="callout callout-blue">
+        <span class="callout-icon">&#x1F4CB;</span>
+        <div>
+          <strong>Fluxo recomendado para o suporte:</strong>
+          (1) Confirmar configuração = SIM →
+          (2) Verificar dados fiscais dos produtos envolvidos →
+          (3) Executar Sincronização no período →
+          (4) Conferir log de resultado →
+          (5) Orientar cliente sobre chaves alteradas e refazer arquivos fiscais.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="doc-footer">
+      <div>Develon Tecnologia &middot; Tecfarma</div>
+      <div>Guia gerado em 15 de julho de 2026 &middot; Equipe de Suporte</div>
+      <div class="ticket-ref">
+        <span class="ticket">TEC-2089</span>
+        <span class="ticket">TEC-2091</span>
+        <span class="ticket">TEC-2092</span>
+      </div>
+      <div style="margin-top:.35rem;font-size:.72rem;">
+        Publicado via GitHub Pages &middot; tecfarma-documentation
+      </div>
+    </div>
+
+  </div><!-- /page-wrap -->
+</body>
+</html>
