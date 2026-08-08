@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cClassTrib: NF-e vs NFC-e — Reforma Tributária (IBS/CBS)</title>
+<style>
+:root{--brand:#0a7d53;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--warn-bg:#fefce8;--warn-border:#fde047;--info-bg:#eff6ff;--info-border:#93c5fd}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:linear-gradient(135deg,#0a7d53,#065f46);color:#fff;padding:48px 24px}
+header a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px}
+header a:hover{color:#fff}
+header h1{margin:12px 0 8px;font-size:26px;line-height:1.3}
+header p.subtitle{margin:0;opacity:.85;font-size:15px}
+.wrap{max-width:860px;margin:0 auto}
+main{padding:36px 24px}
+h2{font-size:20px;color:var(--brand);margin:36px 0 12px;border-bottom:2px solid var(--line);padding-bottom:6px}
+h2:first-of-type{margin-top:0}
+p{margin:0 0 14px}
+.lead{font-size:17px;color:var(--ink);margin-bottom:24px}
+/* callout boxes */
+.callout{border-radius:10px;padding:18px 20px;margin:20px 0}
+.callout-green{background:#f0fdf4;border-left:4px solid #22c55e}
+.callout-blue{background:var(--info-bg);border-left:4px solid #3b82f6}
+.callout-amber{background:var(--warn-bg);border-left:4px solid #f59e0b}
+.callout-red{background:#fef2f2;border-left:4px solid #ef4444}
+.callout strong{display:block;margin-bottom:4px;font-size:15px}
+/* code */
+code{background:#f1f5f9;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;color:#0f172a}
+/* tables */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+thead th{background:var(--brand);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--line)}
+.badge-sim{color:#15803d;font-weight:600}
+.badge-nao{color:#b91c1c;font-weight:600}
+.badge-pode{color:#b45309;font-weight:600}
+/* highlight conclusion */
+.conclusion{background:linear-gradient(135deg,#065f46,#047857);color:#fff;border-radius:14px;padding:26px 28px;margin:32px 0}
+.conclusion h3{margin:0 0 10px;font-size:20px}
+.conclusion p{margin:0;font-size:16px;opacity:.95}
+.conclusion em{font-style:normal;font-weight:700;font-size:18px;display:block;margin-top:12px;color:#a7f3d0}
+/* breadcrumb */
+.breadcrumb{font-size:13px;margin-bottom:20px;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--brand)}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:24px}
+@media(max-width:600px){header h1{font-size:20px}thead th,tbody td{padding:7px 10px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="./index.html">← Tecfarma — Documentação</a>
+    <h1>cClassTrib: NF-e vs NFC-e</h1>
+    <p class="subtitle">Reforma Tributária IBS/CBS — Código de Classificação Tributária</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="breadcrumb"><a href="./index.html">Documentação</a> › Fiscal › cClassTrib</p>
+
+    <p class="lead">
+      <strong>Pergunta central:</strong> O <code>cClassTrib</code> (Reforma Tributária) para NF-e pode ser
+      diferente da NFC-e para um mesmo produto?
+    </p>
+
+    <div class="callout callout-blue">
+      <strong>Resposta resumida</strong>
+      Sim, é possível tecnicamente — mas <em>não deve</em> diferir apenas por causa do modelo do documento
+      (55 = NF-e vs 65 = NFC-e). O determinante é a natureza tributária da <strong>operação</strong>,
+      não o modelo fiscal utilizado.
+    </div>
+
+    <!-- ───────────────────────────── O que é cClassTrib ───────────────────────────── -->
+    <h2>O que é o <code>cClassTrib</code>?</h2>
+    <p>
+      O <code>cClassTrib</code> é o <strong>Código de Classificação Tributária do item</strong> para fins de
+      apuração de IBS (Imposto sobre Bens e Serviços) e CBS (Contribuição sobre Bens e Serviços), instituídos
+      pela Reforma Tributária (EC 132/2023 e LC 214/2025).
+    </p>
+    <p>
+      Este campo determina como o item deve ser tributado — alíquota integral, redução, isenção, regime
+      monofásico, suspensão, entre outros — e é obrigatório nos documentos fiscais eletrônicos a partir da
+      entrada em vigor das regras de IBS/CBS para cada contribuinte.
+    </p>
+    <p>
+      O <code>cClassTrib</code> depende da <strong>natureza tributária da operação</strong> e da tributação
+      aplicável, considerando:
+    </p>
+    <ul>
+      <li>NCM do produto</li>
+      <li>UF de origem e destino</li>
+      <li>Regime tributário do emitente</li>
+      <li>Finalidade da operação (venda, devolução, bonificação, transferência, etc.)</li>
+      <li>Tributação aplicável (alíquota normal, isenção, redução, monofásico, suspensão)</li>
+    </ul>
+
+    <!-- ───────────────────────── Quando DEVE ser o mesmo ───────────────────────────── -->
+    <h2>Quando o <code>cClassTrib</code> DEVE ser o mesmo</h2>
+    <p>
+      Se o mesmo produto é comercializado nas <strong>mesmas condições tributárias</strong> — mesmo NCM,
+      mesma UF, mesmo regime do emitente, mesma finalidade e mesma tributação —, o <code>cClassTrib</code>
+      deve ser <strong>idêntico</strong> independentemente de o documento ser NF-e (modelo 55) ou NFC-e
+      (modelo 65).
+    </p>
+
+    <div class="callout callout-green">
+      <strong>Exemplo prático — venda normal de medicamento</strong>
+      Um produto com tributação integral de IBS/CBS terá o mesmo <code>cClassTrib</code> na NFC-e emitida
+      no PDV e na NF-e emitida para uma venda assistida B2B, desde que as condições da operação sejam iguais.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Produto</th>
+          <th>Condição tributária</th>
+          <th>cClassTrib</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NFC-e (modelo 65)</td>
+          <td>Medicamento X — NCM 3004.50.99</td>
+          <td>Tributação integral</td>
+          <td><code>000001</code></td>
+        </tr>
+        <tr>
+          <td>NF-e (modelo 55)</td>
+          <td>Medicamento X — NCM 3004.50.99</td>
+          <td>Tributação integral</td>
+          <td><code>000001</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ───────────────────────── Quando PODE ser diferente ────────────────────────── -->
+    <h2>Quando o <code>cClassTrib</code> PODE ser diferente</h2>
+    <p>
+      O código <em>pode</em> mudar quando a <strong>natureza da operação</strong> muda — mesmo para o
+      mesmo produto. Nesses casos, a alteração é correta e esperada; não se trata de inconsistência.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Situação comparada</th>
+          <th>cClassTrib pode mudar?</th>
+          <th>Motivo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Venda normal → Devolução</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Devolução tem natureza tributária distinta</td>
+        </tr>
+        <tr>
+          <td>Venda → Bonificação</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Bonificação pode ter tributação específica ou isenção</td>
+        </tr>
+        <tr>
+          <td>Venda → Brinde</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Brinde costuma ter tratamento tributário próprio</td>
+        </tr>
+        <tr>
+          <td>Venda → Transferência entre estabelecimentos</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Transferência não configura fato gerador normal de IBS/CBS</td>
+        </tr>
+        <tr>
+          <td>Venda para consumidor final → Venda para contribuinte</td>
+          <td><span class="badge-pode">Pode</span></td>
+          <td>Dependendo do produto e regime, a tributação pode diferir</td>
+        </tr>
+        <tr>
+          <td>Operação interna → Operação interestadual</td>
+          <td><span class="badge-pode">Pode</span></td>
+          <td>Alíquotas de IBS variam por UF de destino</td>
+        </tr>
+        <tr>
+          <td>Operação com suspensão de IBS/CBS</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Suspensão exige código classificatório específico</td>
+        </tr>
+        <tr>
+          <td>Operação isenta de IBS/CBS</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Isenção tem classificação própria no <code>cClassTrib</code></td>
+        </tr>
+        <tr>
+          <td>Operação com alíquota reduzida</td>
+          <td><span class="badge-sim">Sim</span></td>
+          <td>Redução de alíquota requer código distinto da tributação plena</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ───────────────────────────── Relação com NF-e / NFC-e ─────────────────────── -->
+    <h2>Relação direta com o modelo de documento</h2>
+    <p>
+      O modelo do documento fiscal (<strong>55 = NF-e</strong> ou <strong>65 = NFC-e</strong>) <em>por si só</em>
+      não é um fator que altera o <code>cClassTrib</code>. O que conta é a operação que o documento representa.
+    </p>
+    <ul>
+      <li>Uma NFC-e e uma NF-e que representem a <em>mesma operação de venda</em> para o mesmo produto devem
+          ter o mesmo <code>cClassTrib</code>.</li>
+      <li>Se existir diferença no <code>cClassTrib</code> entre os dois modelos para o mesmo produto, isso
+          indica que as operações em si têm naturezas tributárias distintas — não que o modelo seja o
+          motivo.</li>
+      <li>Nunca defina o <code>cClassTrib</code> com base no modelo do documento; sempre use como referência
+          a natureza e as condições da operação.</li>
+    </ul>
+
+    <div class="callout callout-amber">
+      <strong>Atenção — implementação no Tecfarma</strong>
+      Ao cadastrar ou importar o <code>cClassTrib</code> no cadastro de produto (Retaguarda), certifique-se
+      de que o valor informado corresponde à operação predominante de venda. Operações especiais (devolução,
+      bonificação, transferência) devem ter o código adequado informado no momento da emissão do documento,
+      conforme as regras da SEFAZ para IBS/CBS.
+    </div>
+
+    <!-- ───────────────────────────── Conclusão ─────────────────────────────────────── -->
+    <div class="conclusion">
+      <h3>Conclusão</h3>
+      <p>
+        O <code>cClassTrib</code> não é determinado pelo modelo do documento fiscal (NF-e ou NFC-e),
+        mas sim pela natureza tributária da operação representada naquele documento.
+      </p>
+      <em>O fator determinante é a NATUREZA TRIBUTÁRIA DA OPERAÇÃO, e não o modelo 55 ou 65.</em>
+    </div>
+
+    <h2>Referências</h2>
+    <ul>
+      <li>Emenda Constitucional nº 132/2023 — Reforma Tributária</li>
+      <li>Lei Complementar nº 214/2025 — IBS e CBS</li>
+      <li>Manual de Orientação do Contribuinte (MOC) NF-e/NFC-e — versão vigente</li>
+      <li>Nota Técnica NF-e 2024.002 (campos IBS/CBS)</li>
+      <li>SEFAZ — Tabela de Códigos de Classificação Tributária (<code>cClassTrib</code>)</li>
+    </ul>
+
+  </div>
+</main>
+
+<footer>Develon Tecnologia · Tecfarma — Documentação Fiscal · 2026</footer>
+</body>
+</html>
