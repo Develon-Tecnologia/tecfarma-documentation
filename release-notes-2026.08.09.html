@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tecfarma — Novidades da versão 2026.08.09</title>
+<style>
+:root{--brand:#0a7d53;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--warn-bg:#fefce8;--warn-border:#fde047;--info-bg:#eff6ff;--info-border:#93c5fd;--added-bg:#f0fdf4;--added-border:#22c55e;--fixed-bg:#fef2f2;--fixed-border:#ef4444}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:linear-gradient(135deg,#0a7d53,#065f46);color:#fff;padding:48px 24px}
+header a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px}
+header a:hover{color:#fff}
+header h1{margin:12px 0 8px;font-size:26px;line-height:1.3}
+header p.subtitle{margin:0;opacity:.85;font-size:15px}
+.wrap{max-width:880px;margin:0 auto}
+main{padding:36px 24px}
+h2{font-size:20px;color:var(--brand);margin:40px 0 14px;border-bottom:2px solid var(--line);padding-bottom:8px;display:flex;align-items:center;gap:8px}
+h2:first-of-type{margin-top:0}
+h3.group-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:24px 0 6px}
+p{margin:0 0 14px}
+.lead{font-size:16px;color:var(--ink);margin-bottom:24px}
+/* destaques callout */
+.highlights{background:linear-gradient(135deg,#065f46,#047857);color:#fff;border-radius:14px;padding:26px 28px;margin:0 0 36px}
+.highlights h2{color:#a7f3d0;border-bottom-color:rgba(167,243,208,.3);font-size:18px;margin:0 0 16px}
+.highlights ul{margin:0;padding:0 0 0 20px}
+.highlights li{margin:8px 0;font-size:15px;line-height:1.5}
+.highlights li strong{color:#d1fae5}
+/* callout boxes */
+.callout{border-radius:10px;padding:18px 20px;margin:20px 0}
+.callout-green{background:var(--added-bg);border-left:4px solid var(--added-border)}
+.callout-blue{background:var(--info-bg);border-left:4px solid #3b82f6}
+.callout-amber{background:var(--warn-bg);border-left:4px solid #f59e0b}
+/* release item list */
+ul.items{list-style:none;padding:0;margin:0 0 8px}
+ul.items li{padding:10px 14px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--card);font-size:14px;line-height:1.55;display:flex;gap:10px;align-items:flex-start}
+ul.items li .tec{flex-shrink:0;font-weight:700;color:var(--brand);min-width:90px;font-size:13px;padding-top:1px}
+ul.items li .desc{flex:1}
+ul.items li .pr{flex-shrink:0;color:var(--muted);font-size:12px;white-space:nowrap;padding-top:2px}
+ul.items li .pr a{color:var(--muted);text-decoration:none}
+ul.items li .pr a:hover{color:var(--brand)}
+/* section badges */
+.badge-added{display:inline-block;background:#dcfce7;color:#166534;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:700;margin-left:6px;vertical-align:middle}
+.badge-fixed{display:inline-block;background:#fee2e2;color:#991b1b;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:700;margin-left:6px;vertical-align:middle}
+.period{font-size:13px;background:#f1f5f9;border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin-bottom:28px;color:var(--muted)}
+.period strong{color:var(--ink)}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:28px}
+code{background:#f1f5f9;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-family:ui-monospace,Menlo,Monaco,monospace;font-size:12px;color:#0f172a}
+@media(max-width:600px){header h1{font-size:20px}.highlights{padding:18px 16px}ul.items li{flex-wrap:wrap}.tec{min-width:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="./index.html">← Tecfarma — Documentação</a>
+    <h1>Novidades da versão 2026.08.09</h1>
+    <p class="subtitle">Release Notes — tudo que foi entregue neste ciclo</p>
+  </div>
+</header>
+<main><div class="wrap">
+
+<p class="period">
+  <strong>Período coberto:</strong> 15/06/2026 a 10/08/2026 &nbsp;·&nbsp;
+  <strong>Versão:</strong> 2026.08.09 &nbsp;·&nbsp;
+  <strong>Itens entregues:</strong> 26 novidades + 24 correções = 50 itens
+</p>
+
+<!-- DESTAQUES -->
+<div class="highlights">
+  <h2>⭐ Destaques desta versão</h2>
+  <ul>
+    <li><strong>TEC-2114 — Zeus 2026.7.16:</strong> biblioteca Zeus NFe/NFCe atualizada para a versão 2026.7.16.1250, base para todos os novos recursos fiscais.</li>
+    <li><strong>TEC-1870 — NF-e via Zeus:</strong> emissão de NF-e completa pelo componente Zeus, integrada à nova reforma tributária (IBS/CBS).</li>
+    <li><strong>TEC-796 — Cancelamento de NF-e pelo Histórico:</strong> botão de cancelamento disponível diretamente na tela de Histórico de Notas Fiscais, sem precisar abrir outra tela.</li>
+    <li><strong>TEC-2116 — Rejeição 232 corrigida:</strong> IE do destinatário vazia, isenta ou zerada agora é tratada automaticamente como não-contribuinte, eliminando rejeições em série.</li>
+    <li><strong>TEC-2111 — Imendes API 3.0:</strong> integração com a plataforma Imendes migrada para a API 3.0, mantendo retrocompatibilidade com os fluxos existentes.</li>
+  </ul>
+</div>
+
+<!-- NOVIDADES -->
+<h2>✨ Novidades <span class="badge-added">Adicionado</span></h2>
+
+<h3 class="group-label">Reforma Tributária / Zeus</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-2114</span>
+    <span class="desc"><strong>Zeus NFe/NFCe 2026.7.16</strong> — biblioteca Zeus atualizada para a versão 2026.7.16.1250, com suporte completo à nova reforma tributária (IBS/CBS/IS). Fundação para TEC-1870 e TEC-2113.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/931" target="_blank">PR #931</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1870</span>
+    <span class="desc"><strong>NF-e — Emissão via Zeus</strong> — implementação da criação da NF-e pelo componente Zeus para a nova reforma tributária. NF-e agora gera todos os campos IBS/CBS exigidos pelo SEFAZ.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/915" target="_blank">PR #915</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2113</span>
+    <span class="desc"><strong>NF-e — Guia Reforma Tributária</strong> — guia "Reforma Tributária" exibida na tela de emissão de NF-e quando o Zeus está configurado, facilitando o preenchimento dos campos IBS/CBS.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/930" target="_blank">PR #930</a></span>
+  </li>
+</ul>
+
+<h3 class="group-label">NF-e</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-796</span>
+    <span class="desc"><strong>NF-e — Cancelamento pelo Histórico</strong> — botão de cancelamento de NF-e disponível diretamente na tela de Histórico de Notas Fiscais Eletrônicas, eliminando a necessidade de navegar para outra tela.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/918" target="_blank">PR #918</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-793</span>
+    <span class="desc"><strong>NF-e — XML de cancelamento armazenado</strong> — XML do evento de cancelamento da NF-e agora é persistido no banco de dados, garantindo rastreabilidade completa. Aplicado na Retaguarda nova e antiga (port).</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/866" target="_blank">PR #866</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/892" target="_blank">#892</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2067</span>
+    <span class="desc"><strong>NF-e — Relatório de emissão própria</strong> — novo relatório de produtos lançados em NF-e de emissão própria, com linha de filtro digitável para busca rápida por produto ou fornecedor.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/911" target="_blank">PR #911</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/914" target="_blank">#914</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1913</span>
+    <span class="desc"><strong>NF-e / NFC-e — CNAE do emitente</strong> — CNAE da empresa emitente incluído no XML da NF-e e NFC-e conforme exigência fiscal. Aplicado na Retaguarda nova e antiga (port).</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/871" target="_blank">PR #871</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/893" target="_blank">#893</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/895" target="_blank">#895</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1321</span>
+    <span class="desc"><strong>NF-e — CRUD notaFiscalxArquivoXml</strong> — novo CRUD para gerenciar os arquivos XML vinculados às notas fiscais, permitindo rastreamento e consulta dos XMLs armazenados.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/858" target="_blank">PR #858</a></span>
+  </li>
+  <li>
+    <span class="tec">NF-e</span>
+    <span class="desc"><strong>Série de emissão e numeração por série</strong> — NF-e agora armazena a série de emissão e controla a numeração separadamente por série, evitando conflitos em ambientes com múltiplas séries configuradas.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/856" target="_blank">PR #856</a></span>
+  </li>
+</ul>
+
+<h3 class="group-label">NFC-e / PDV</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-2089</span>
+    <span class="desc"><strong>NFC-e — Correção de inconsistências em 2º plano</strong> — correção automática de NFC-e em segundo plano após a emissão (cStat 611/374/382/725), gateada por configuração. Evita interrupção do fluxo de venda no PDV.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/899" target="_blank">PR #899</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2092</span>
+    <span class="desc"><strong>NFC-e — Sincronização com correção de inconsistências</strong> — a sincronização agora respeita a configuração "Corrigir Inconsistências", unificando o comportamento entre emissão e sincronização.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/897" target="_blank">PR #897</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2087</span>
+    <span class="desc"><strong>PBM Funcional — Meio de pagamento no parcial</strong> — operador pode agora definir o meio de pagamento no pagamento parcial do PBM Funcional, com os meios "à vista" preservados corretamente.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/886" target="_blank">PR #886</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/888" target="_blank">#888</a></span>
+  </li>
+</ul>
+
+<h3 class="group-label">Retaguarda / Operações</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-2111</span>
+    <span class="desc"><strong>Imendes — API 3.0</strong> — integração Imendes migrada para a API 3.0 (endpoint <code>api/v3</code>), compatível com o novo modelo de saneamento de grades e regras fiscais.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/923" target="_blank">PR #923</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2102</span>
+    <span class="desc"><strong>Retaguarda — Comissão por Funcionário</strong> — relatório de Comissão por Funcionário agora exibe o total por funcionário, com subtotais por produto. Corrigida também exceção <code>RuntimeBinderException</code> em campos nulos.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/909" target="_blank">PR #909</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/919" target="_blank">#919</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2107</span>
+    <span class="desc"><strong>Pré-Venda — Número único garantido</strong> — unicidade do número da pré-venda garantida por validação no banco, eliminando duplicações causadas por concorrência (race condition).</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/913" target="_blank">PR #913</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2101</span>
+    <span class="desc"><strong>Estoque — Validação fiscal por filtro</strong> — validação dos dados fiscais ao confirmar operações por filtro de <code>cClassTrib</code> em <em>Operação por Filtro</em>, evitando emissão com classificação tributária inválida.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/908" target="_blank">PR #908</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2081</span>
+    <span class="desc"><strong>Receituário — Data Receita opcional</strong> — nova configuração permite deixar o campo "Data Receita" em branco no receituário de produto controlado, atendendo farmácias com fluxo simplificado.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/910" target="_blank">PR #910</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-638</span>
+    <span class="desc"><strong>Empresa — Bloqueio com NFC-e pendente</strong> — cadastro da empresa bloqueado quando há NFC-e pendente de transmissão, prevenindo alterações que invalidariam notas em fila. Aplicado na Retaguarda nova e antiga (port).</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/867" target="_blank">PR #867</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/890" target="_blank">#890</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-671</span>
+    <span class="desc"><strong>Produto — Lote no histórico de movimentação</strong> — lote vendido agora exibido no histórico de movimentação do produto, facilitando rastreabilidade de lotes e conferência de estoque.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/916" target="_blank">PR #916</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-683</span>
+    <span class="desc"><strong>Produto — Preço inicial no histórico</strong> — ao cadastrar um novo produto, o preço inicial é registrado automaticamente no histórico de preços, garantindo rastreabilidade desde o primeiro cadastro.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/865" target="_blank">PR #865</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1653</span>
+    <span class="desc"><strong>Entrada NF — Coluna Promoção</strong> — coluna "Promoção (R$)" adicionada à esquerda do PMC na tela de atualização de preços na entrada de NF, tornando a comparação com o preço promocional imediata.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/879" target="_blank">PR #879</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2057</span>
+    <span class="desc"><strong>Entrada NF — Custo e validade</strong> — <code>NotaFiscalxProduto_Registrar</code> agora persiste data de fabricação/validade e retorna o custo unitário calculado, alimentando corretamente o histórico de custos na entrada.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/869" target="_blank">PR #869</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/907" target="_blank">#907</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2069</span>
+    <span class="desc"><strong>Plataforma — Preço do produto</strong> — preço do produto enviado para a plataforma integrada, mantendo o catálogo sincronizado com os preços praticados no PDV.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/889" target="_blank">PR #889</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1863</span>
+    <span class="desc"><strong>Performance — Índice ProdutoxTributo</strong> — índice criado na tabela <code>ProdutoxTributo</code>, reduzindo o tempo de consultas fiscais por produto em bases com grande volume de registros.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/929" target="_blank">PR #929</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2076</span>
+    <span class="desc"><strong>PBM — Receita do controlado</strong> — receita do medicamento controlado pode ser definida diretamente no PBM, evitando solicitação dupla ao operador durante o fluxo de venda.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/840" target="_blank">PR #840</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2056</span>
+    <span class="desc"><strong>Retaguarda — Relatórios RMNRA / RMNRB</strong> — mensagem informativa exibida nos relatórios RMNRA e RMNRB quando não há movimentação no período selecionado, evitando confusão com relatórios em branco.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/835" target="_blank">PR #835</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2066</span>
+    <span class="desc"><strong>Retaguarda — Bloqueio CFOP 5929</strong> — emissão de NF-e com CFOP 5929 bloqueada na Retaguarda, prevenindo emissões com natureza de operação indevida para o tipo de venda.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/838" target="_blank">PR #838</a></span>
+  </li>
+</ul>
+
+<!-- CORREÇÕES -->
+<h2>🛠️ Correções <span class="badge-fixed">Corrigido</span></h2>
+
+<h3 class="group-label">NF-e</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-2116</span>
+    <span class="desc"><strong>NF-e — Rejeição 232 (IE do destinatário)</strong> — IE do destinatário vazia, isenta ou zerada agora tratada automaticamente como não-contribuinte, corrigindo rejeições em série na emissão de NF-e para PF ou empresas isentas.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/932" target="_blank">PR #932</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2093</span>
+    <span class="desc"><strong>NF-e — CFOP validado antes da emissão</strong> — CFOP validado antes de iniciar a emissão da NF-e; alteração de NF-e de saída já autorizada bloqueada, prevenindo inconsistências fiscais.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/900" target="_blank">PR #900</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1773</span>
+    <span class="desc"><strong>NF-e — xJust no XML de cancelamento</strong> — justificativa (<code>xJust</code>) incluída corretamente no XML de cancelamento arquivado, garantindo conformidade com o schema SEFAZ.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/874" target="_blank">PR #874</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2078</span>
+    <span class="desc"><strong>NF-e — Campos da transportadora</strong> — campos da transportadora (nome, CNPJ, endereço) que não estavam sendo salvos no XML da NF-e agora persistidos corretamente.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/842" target="_blank">PR #842</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1761</span>
+    <span class="desc"><strong>NF-e — Formatação ANTT e pesos</strong> — Código ANTT, UF da placa e campos de pesos (bruto/líquido) formatados corretamente na emissão da NF-e, evitando rejeição por formato inválido.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/876" target="_blank">PR #876</a></span>
+  </li>
+</ul>
+
+<h3 class="group-label">NFC-e / PDV</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-2100</span>
+    <span class="desc"><strong>NFC-e — Rejeição na retransmissão</strong> — corrigida rejeição de pagamentos na retransmissão de NFC-e e exceção na tela de correção de pendentes, estabilizando o fluxo de recuperação de notas rejeitadas.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/912" target="_blank">PR #912</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2097</span>
+    <span class="desc"><strong>NFC-e — Tabela NFCeProduto alimentada</strong> — tabela <code>NFCeProduto</code> alimentada corretamente após a criação do XML na correção de inconsistências, corrigindo divergências nos relatórios de NFCe por produto.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/904" target="_blank">PR #904</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2091</span>
+    <span class="desc"><strong>NFC-e — Sincronização e arquivoXML_url</strong> — <code>arquivoXML_url</code> atualizado corretamente após a autorização; NFC-e já autorizada não mais relançada como erro na sincronização automática.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/903" target="_blank">PR #903</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2094</span>
+    <span class="desc"><strong>NFC-e — Divergência em relatórios contábeis</strong> — divergência nos totais dos relatórios contábeis da NFC-e corrigida, garantindo conciliação correta entre o sistema e a contabilidade.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/902" target="_blank">PR #902</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2096</span>
+    <span class="desc"><strong>NFC-e — TransmitirContingências limitado</strong> — transmissão de contingências limitada a 1 execução por dia quando a configuração de correção de inconsistências está ativa, evitando sobrecarga no SEFAZ.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/901" target="_blank">PR #901</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2090</span>
+    <span class="desc"><strong>NFC-e — Cód. Barras Secundário na Gerar Venda</strong> — ferramenta "Gerar Venda" agora reconhece o Código de Barras Secundário do produto, eliminando falha ao usar produtos com código alternativo.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/896" target="_blank">PR #896</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1912</span>
+    <span class="desc"><strong>NFC-e — cStat 374 CFOP incompatível</strong> — correção local para NFC-e rejeitada com cStat 374 (CFOP incompatível com o destinatário), reprocessando com CFOP ajustado automaticamente.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/870" target="_blank">PR #870</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1740</span>
+    <span class="desc"><strong>NFC-e — CST X40 por dígito de origem</strong> — roteamento do CST X40 pelo dígito de origem corrigido no emissor via API, resolvendo inconsistência tributária em produtos com tributação monofásica.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/877" target="_blank">PR #877</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2023</span>
+    <span class="desc"><strong>NFC-e — PBM desconto em folha como DINHEIRO</strong> — venda de PBM com desconto em folha não mais registrada como "DINHEIRO" no fechamento da NFC-e, corrigindo o meio de pagamento transmitido ao SEFAZ.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/837" target="_blank">PR #837</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/854" target="_blank">#854</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2088</span>
+    <span class="desc"><strong>PBM / Funcional — ValorOperadora negativo</strong> — <code>ValorOperadora</code> negativo quando <code>ValorPagarAVista &gt; 0</code> corrigido; valor agora persistido corretamente na NFC-e do Funcional Card.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/881" target="_blank">PR #881</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/884" target="_blank">#884</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/885" target="_blank">#885</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2074</span>
+    <span class="desc"><strong>Pré-Venda — PBM com controlado</strong> — erro ao finalizar venda de PBM quando o carrinho continha produto controlado corrigido, eliminando exceção que travava o PDV.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/836" target="_blank">PR #836</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2109</span>
+    <span class="desc"><strong>ECF — Menu Sua Receita Digital removido</strong> — menu "Sua Receita Digital" retirado da tela de Digitalização do ECF, que estava sendo exibido indevidamente nesse contexto.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/921" target="_blank">PR #921</a></span>
+  </li>
+  <li>
+    <span class="tec">NFC-e / PDV</span>
+    <span class="desc"><strong>Consistência Vendas × VendasxProdutos</strong> — validação de consistência entre as tabelas <code>Vendas</code> e <code>VendasxProdutos</code> executada antes de criar a NFC-e; venda divergente reconstruída a partir da Pré-Venda automaticamente.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/898" target="_blank">PR #898</a></span>
+  </li>
+</ul>
+
+<h3 class="group-label">SPED Fiscal</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-1768</span>
+    <span class="desc"><strong>SPED — Registro C190 da NFC-e</strong> — registro C190 do SPED Fiscal gerado a partir da tabela <code>NFCexProduto</code>, corrigindo inconsistência nas saídas de NFC-e no arquivo fiscal.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/875" target="_blank">PR #875</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2075</span>
+    <span class="desc"><strong>NFC-e — Relatório de NCM</strong> — divergências no Relatório de NCM da NFC-e corrigidas; totais por NCM agora conciliam com os valores transmitidos ao SEFAZ.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/841" target="_blank">PR #841</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/853" target="_blank">#853</a></span>
+  </li>
+</ul>
+
+<h3 class="group-label">Retaguarda / Operações</h3>
+<ul class="items">
+  <li>
+    <span class="tec">TEC-1826</span>
+    <span class="desc"><strong>Estoque — Divergência com histórico</strong> — divergência entre o estoque atual e o histórico de movimentação corrigida, garantindo que o saldo exibido reflita todas as entradas e saídas registradas.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/873" target="_blank">PR #873</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1831</span>
+    <span class="desc"><strong>Retaguarda — Importação CSV com quebra de linha</strong> — quebra de linha incorreta na importação de CSV de produtos corrigida; linhas com descrições longas agora importadas sem truncamento ou fusão.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/872" target="_blank">PR #872</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1405</span>
+    <span class="desc"><strong>Caixa — "Caixa Fechado" falso positivo</strong> — mensagem "Caixa Fechado" exibida incorretamente com caixa aberto corrigida; estado do caixa verificado diretamente no banco antes de exibir o alerta.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/868" target="_blank">PR #868</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-1287</span>
+    <span class="desc"><strong>Produto — Código duplicado eliminado</strong> — race condition <code>MAX(codigo)+1</code> que gerava códigos de produto duplicados em cadastros simultâneos eliminada com lock de banco.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/864" target="_blank">PR #864</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2004</span>
+    <span class="desc"><strong>Atualizador — SCHEMA completo</strong> — publicação de versão agora sobe o SCHEMA com todos os arquivos necessários, corrigindo instalações que ficavam incompletas após a atualização.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/863" target="_blank">PR #863</a></span>
+  </li>
+  <li>
+    <span class="tec">TEC-2086</span>
+    <span class="desc"><strong>Atualizador — Migração FTP → API</strong> — FTP removido do atualizador; publicação de versão migrada para a API <code>cloud-varejo-hub</code>. Corrigidos também: ternário invertido no download e validação de <code>urlAzure</code> inválida antes de publicar.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/862" target="_blank">PR #862</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/882" target="_blank">#882</a>, <a href="https://github.com/hdamasceno/tecfarma/pull/883" target="_blank">#883</a></span>
+  </li>
+  <li>
+    <span class="tec">Atualizador</span>
+    <span class="desc"><strong>Upload de versão — Exceção real exposta</strong> — erro real exibido no log quando o upload de versão falha, substituindo mensagem genérica que dificultava o diagnóstico.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/926" target="_blank">PR #926</a></span>
+  </li>
+  <li>
+    <span class="tec">Farmácia Popular</span>
+    <span class="desc"><strong>Timeout do servidor — Mensagem orientativa</strong> — mensagem de timeout do servidor Farmácia Popular atualizada para orientar o operador sobre falha de internet, reduzindo chamados de suporte por erro de conexão.</span>
+    <span class="pr"><a href="https://github.com/hdamasceno/tecfarma/pull/891" target="_blank">PR #891</a></span>
+  </li>
+</ul>
+
+<div class="callout callout-amber" style="margin-top:36px">
+  <strong>ℹ️ Itens não incluídos neste ciclo</strong>
+  <p style="margin:6px 0 0;font-size:14px">
+    <strong>TEC-36</strong> (SNGPC — alterar item do inventário inicial) e <strong>TEC-686</strong> (NFC-e — mensagem personalizada no cupom) têm PRs abertos (#927 e #928) e serão incluídos no próximo release.<br>
+    <strong>TEC-2115</strong> (NF-e devolução — DFeReferenciado por item, NT 2025.002) está em desenvolvimento e aguarda conclusão.
+  </p>
+</div>
+
+</div></main>
+<footer>Develon Tecnologia · Tecfarma · versão 2026.08.09</footer>
+</body>
+</html>
