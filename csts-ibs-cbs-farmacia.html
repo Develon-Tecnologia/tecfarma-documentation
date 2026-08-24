@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSTs de IBS/CBS — Farmácia/Drogaria Varejista (TEC-2135)</title>
+<style>
+:root{--brand:#0a7d53;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--warn-bg:#fefce8;--warn-border:#fde047;--info-bg:#eff6ff;--info-border:#93c5fd}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:linear-gradient(135deg,#0a7d53,#065f46);color:#fff;padding:48px 24px}
+header a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px}
+header a:hover{color:#fff}
+header h1{margin:12px 0 8px;font-size:26px;line-height:1.3}
+header p.subtitle{margin:0;opacity:.85;font-size:15px}
+.wrap{max-width:860px;margin:0 auto}
+main{padding:36px 24px}
+h2{font-size:20px;color:var(--brand);margin:36px 0 12px;border-bottom:2px solid var(--line);padding-bottom:6px}
+h2:first-of-type{margin-top:0}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 14px;padding-left:24px}
+li{margin-bottom:4px}
+.lead{font-size:17px;color:var(--ink);margin-bottom:24px}
+.callout{border-radius:10px;padding:18px 20px;margin:20px 0}
+.callout-green{background:#f0fdf4;border-left:4px solid #22c55e}
+.callout-blue{background:var(--info-bg);border-left:4px solid #3b82f6}
+.callout-amber{background:var(--warn-bg);border-left:4px solid #f59e0b}
+.callout-red{background:#fef2f2;border-left:4px solid #ef4444}
+.callout strong{display:block;margin-bottom:4px;font-size:15px}
+code{background:#f1f5f9;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;color:#0f172a}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+thead th{background:var(--brand);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.cst-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:20px 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.cst-card h3{margin:0 0 6px;font-size:17px;color:var(--ink)}
+.cst-badge{display:inline-block;background:var(--brand);color:#fff;border-radius:6px;padding:3px 12px;font-size:15px;font-weight:700;font-family:ui-monospace,monospace;margin-bottom:10px}
+.tag-na{color:#b91c1c;font-weight:600;font-size:13px}
+.tag-edge{color:#b45309;font-weight:600;font-size:13px}
+.tag-ok{color:#15803d;font-weight:600;font-size:13px}
+.breadcrumb{font-size:13px;margin-bottom:20px;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--brand)}
+.sources a{color:var(--brand);text-decoration:none}
+.sources a:hover{text-decoration:underline}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:24px;border-top:1px solid var(--line);margin-top:40px}
+@media(max-width:600px){header h1{font-size:20px}thead th,tbody td{padding:7px 10px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="./index.html">&#8592; Tecfarma &mdash; Documentação</a>
+    <h1>Reforma Tributária &mdash; CSTs de IBS/CBS</h1>
+    <p class="subtitle">Aplicados à farmácia/drogaria varejista &middot; TEC-2135</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="breadcrumb"><a href="./index.html">Documentação</a> &rsaquo; Fiscal &rsaquo; CSTs IBS/CBS Farmácia</p>
+
+    <p class="lead">
+      Guia de referência para as CSTs (Códigos de Situação Tributária) de IBS/CBS relevantes ao segmento
+      de farmácia/drogaria varejista, com base no <strong>Informe Técnico 2025.002-RTC</strong>
+      (Portal Nacional NF-e/NFC-e) e na <strong>LC 214/2025</strong>.
+    </p>
+
+    <h2>Estrutura: CST &times; cClassTrib</h2>
+    <p>Por item fiscal convivem dois campos complementares:</p>
+    <ul>
+      <li><strong>CST</strong> &mdash; 3 dígitos, define o <em>tratamento tributário geral</em> do item (alíquota integral, reduzida, diferimento, suspensão etc.).</li>
+      <li><strong>cClassTrib</strong> &mdash; 6 dígitos. Os 3 primeiros repetem o CST; os 3 últimos apontam o dispositivo exato da LC 214/2025 (tipo de alíquota, percentual de redução de IBS e CBS).</li>
+    </ul>
+
+    <div class="callout callout-blue">
+      <strong>Leitura prática para a drogaria</strong>
+      O dia a dia do PDV gira em torno de apenas dois CSTs:
+      <ul style="margin:8px 0 4px">
+        <li><code>000</code> &mdash; Tributação integral (perfumaria, cosméticos, conveniência, higiene não essencial)</li>
+        <li><code>200</code> &mdash; Alíquota reduzida (medicamentos) &mdash; o CST mais usado na drogaria</li>
+      </ul>
+      <p style="margin:10px 0 0"><strong>cClassTrib confirmados para medicamentos (CST 200):</strong><br>
+      <code>200032</code> redução de 60% &nbsp;&middot;&nbsp; <code>200009</code> alíquota zero &nbsp;&middot;&nbsp;
+      <code>200053</code> soros e vacinas &nbsp;&middot;&nbsp; <code>200010</code> administração pública</p>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Atenção &mdash; contexto desta página</strong>
+      As 9 CSTs documentadas abaixo <strong>não são os códigos normais de venda de medicamento</strong>.
+      São todas de borda, institucionais ou específicas de regimes especiais &mdash; para uso em situações pontuais, nunca no fluxo principal do PDV.
+    </div>
+
+    <h2>Detalhamento das 9 CSTs</h2>
+
+    <div class="cst-card">
+      <span class="cst-badge">210</span>
+      <h3>Alíquota reduzida + redutor de base de cálculo</h3>
+      <p class="tag-edge">&#9888; Edge &mdash; usar com cautela na farmácia</p>
+      <p>Combina <em>dois mecanismos no mesmo item</em>: redução da alíquota <strong>e</strong> redução (ou exclusão) de base de cálculo. Difere de <code>200</code> (que reduz só a alíquota) e de <code>222</code> (que reduz só a base).</p>
+      <p><strong>Família cClassTrib:</strong> <code>210xxx</code> &mdash; códigos de 6 dígitos individuais <em>não confirmados em fonte oficial</em>.</p>
+      <p><strong>Implicação farmácia:</strong> o risco é cadastrar CST 210 onde o correto é 200. A redação oficial diverge entre fontes &mdash; confirmar sempre no Anexo do IT 2025.002 e no portal SVRS antes de usar.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">220</span>
+      <h3>Alíquota fixa (valor absoluto, não ad valorem)</h3>
+      <p class="tag-na">&#10007; N/A para farmácia varejista</p>
+      <p>O IBS/CBS é calculado como valor fixo por unidade, não como percentual sobre o preço. Típico de incorporação imobiliária e regimes especiais setoriais.</p>
+      <p><strong>Família cClassTrib:</strong> <code>220xxx</code> &mdash; códigos individuais não confirmados em fonte oficial.</p>
+      <p><strong>Implicação farmácia:</strong> sem aplicação ao varejo de medicamentos ou demais produtos de drogaria.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">221</span>
+      <h3>Alíquota fixa proporcional à receita bruta</h3>
+      <p class="tag-na">&#10007; N/A para farmácia varejista</p>
+      <p>Variante da alíquota fixa (220) calculada proporcionalmente à receita bruta. Restrita a operações imobiliárias e determinados regimes especiais.</p>
+      <p><strong>Família cClassTrib:</strong> <code>221xxx</code> &mdash; códigos individuais não confirmados em fonte oficial.</p>
+      <p><strong>Implicação farmácia:</strong> sem aplicação ao varejo.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">222</span>
+      <h3>Redução de base de cálculo</h3>
+      <p class="tag-na">&#10007; N/A ao varejo de medicamentos</p>
+      <p>Alíquota padrão aplicada sobre uma base de cálculo reduzida (menor que o valor total da operação). Difere de <code>200</code> (que reduz a alíquota em si) e de <code>830</code> (que exclui parcelas da base).</p>
+      <p><strong>Caso oficial confirmado:</strong> <code>222001</code> &mdash; transporte internacional de passageiros (base reduzida à metade quando ida e volta são vendidas juntas).</p>
+      <p><strong>Implicação farmácia:</strong> citado aqui apenas para distinguir conceitualmente de 200. Sem uso direto no PDV de drogaria.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">510</span>
+      <h3>Diferimento</h3>
+      <p class="tag-edge">&#9888; Muito baixa probabilidade no varejo</p>
+      <p>O recolhimento do IBS/CBS é <em>adiado</em> para etapa posterior da cadeia &mdash; não é desoneração, o imposto continua devido, apenas desloca-se no tempo. Típico de energia elétrica, insumos agropecuários e operações B2B.</p>
+      <p><strong>Família cClassTrib:</strong> <code>510xxx</code> &mdash; códigos individuais não confirmados em fonte oficial.</p>
+      <p><strong>Implicação farmácia:</strong> a venda a consumidor final encerra a cadeia &mdash; não há etapa posterior para diferir. No máximo pode aparecer em entradas atípicas (compra de insumos com diferimento pelo fornecedor). Nunca deve aparecer na saída do PDV.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">550</span>
+      <h3>Suspensão</h3>
+      <p class="tag-edge">&#9888; Institucional/edge &mdash; regimes especiais</p>
+      <p>A exigência do IBS/CBS é <em>suspensa</em>, condicionada à ocorrência de um evento futuro específico (exportação, operações em ZPE &mdash; Zona de Processamento de Exportação &mdash;, Repetro, áreas de livre comércio). Difere do diferimento (510): aqui a suspensão está atrelada a uma condição, não apenas a uma etapa da cadeia.</p>
+      <p><strong>Família cClassTrib:</strong> <code>550xxx</code> &mdash; códigos individuais não confirmados em fonte oficial.</p>
+      <p><strong>Implicação farmácia:</strong> aplicável apenas se a rede operar em zona franca ou zona especial de exportação. Não tem uso no varejo convencional.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">800</span>
+      <h3>Transferência de crédito de IBS/CBS</h3>
+      <p class="tag-edge">&#9888; Evento societário-contábil, não item de PDV</p>
+      <p>Movimentação de créditos acumulados de IBS/CBS entre estabelecimentos ou entidades: fusão, cisão, incorporação, repasse a cooperados, transferência entre filiais do mesmo grupo.</p>
+      <p><strong>Família cClassTrib:</strong> <code>800xxx</code> &mdash; códigos individuais não confirmados em fonte oficial.</p>
+      <p><strong>Implicação farmácia:</strong> operação de responsabilidade da matriz/contabilidade corporativa. Não envolve produtos de prateleira e jamais aparece em documento fiscal de venda ao consumidor.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">810</span>
+      <h3>Ajustes de apuração / crédito presumido de IBS na ZFM</h3>
+      <p class="tag-edge">&#9888; Edge/regional &mdash; ZFM e ajustes técnicos</p>
+      <p>Abrange crédito presumido de IBS para empresas localizadas na Zona Franca de Manaus (ZFM) e ajustes de apuração periódica do tributo (retificações, estornos técnicos, regularizações).</p>
+      <p><strong>Família cClassTrib:</strong> <code>810xxx</code> &mdash; <em>parte dos ajustes ainda marcada como &ldquo;disponível em breve&rdquo; / em definição no IT 2025.002</em> &mdash; verificar a versão vigente do Informe Técnico.</p>
+      <p><strong>Implicação farmácia:</strong> relevante apenas para redes com estabelecimentos na ZFM ou para o departamento fiscal em ajustes de apuração. Não tem uso no PDV convencional.</p>
+    </div>
+
+    <div class="cst-card">
+      <span class="cst-badge">830</span>
+      <h3>Exclusão de base de cálculo</h3>
+      <p class="tag-na">&#10007; N/A ao varejo de medicamentos</p>
+      <p>Parcelas específicas são <em>retiradas da base de cálculo</em> antes do cálculo do IBS/CBS. Distinto de reduzir a base (<code>222</code>) e de reduzir a alíquota (<code>200</code>/<code>210</code>). Caso típico: distribuição de energia elétrica (encargos setoriais excluídos da base).</p>
+      <p><strong>Família cClassTrib:</strong> <code>830xxx</code> &mdash; códigos individuais não confirmados em fonte oficial.</p>
+      <p><strong>Implicação farmácia:</strong> sem aplicação ao varejo de medicamentos ou demais produtos de drogaria.</p>
+    </div>
+
+    <h2>Tabela resumo de relevância</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>CST</th>
+          <th>Mecanismo</th>
+          <th>Família cClassTrib</th>
+          <th>Relevância Farmácia</th>
+          <th>Contexto de uso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>000</code></td>
+          <td>Tributação integral</td>
+          <td><code>000xxx</code></td>
+          <td><span style="color:#15803d;font-weight:600">&#10003; USO DIÁRIO</span></td>
+          <td>Perfumaria, cosméticos, conveniência</td>
+        </tr>
+        <tr>
+          <td><code>200</code></td>
+          <td>Alíquota reduzida</td>
+          <td><code>200032</code> <code>200009</code> <code>200053</code> <code>200010</code></td>
+          <td><span style="color:#15803d;font-weight:600">&#10003; USO DIÁRIO</span></td>
+          <td>Medicamentos &mdash; núcleo do PDV</td>
+        </tr>
+        <tr>
+          <td><code>210</code></td>
+          <td>Alíquota reduzida + redutor de base</td>
+          <td><code>210xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b45309;font-weight:600">&#9888; Edge</span></td>
+          <td>Combinação atípica; cuidar para não confundir com 200</td>
+        </tr>
+        <tr>
+          <td><code>220</code></td>
+          <td>Alíquota fixa</td>
+          <td><code>220xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b91c1c;font-weight:600">&#10007; N/A</span></td>
+          <td>Incorporação imobiliária / regimes especiais</td>
+        </tr>
+        <tr>
+          <td><code>221</code></td>
+          <td>Alíquota fixa proporcional</td>
+          <td><code>221xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b91c1c;font-weight:600">&#10007; N/A</span></td>
+          <td>Operações imobiliárias</td>
+        </tr>
+        <tr>
+          <td><code>222</code></td>
+          <td>Redução de base de cálculo</td>
+          <td><code>222001</code> confirmado</td>
+          <td><span style="color:#b91c1c;font-weight:600">&#10007; N/A</span></td>
+          <td>Transporte internacional de passageiros</td>
+        </tr>
+        <tr>
+          <td><code>510</code></td>
+          <td>Diferimento</td>
+          <td><code>510xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b45309;font-weight:600">&#9888; Entradas atípicas</span></td>
+          <td>Energia, insumos agropecuários (B2B); nunca na saída PDV</td>
+        </tr>
+        <tr>
+          <td><code>550</code></td>
+          <td>Suspensão</td>
+          <td><code>550xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b45309;font-weight:600">&#9888; Edge/ZPE</span></td>
+          <td>Exportação, ZPE, Repetro, áreas de livre comércio</td>
+        </tr>
+        <tr>
+          <td><code>800</code></td>
+          <td>Transferência de crédito</td>
+          <td><code>800xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b91c1c;font-weight:600">&#10007; Contabilidade</span></td>
+          <td>Fusão, cisão, incorporação &mdash; não envolve produto</td>
+        </tr>
+        <tr>
+          <td><code>810</code></td>
+          <td>Ajustes / crédito presumido ZFM</td>
+          <td><code>810xxx</code> &#9888; parcial</td>
+          <td><span style="color:#b45309;font-weight:600">&#9888; ZFM/Fiscal</span></td>
+          <td>Zona Franca de Manaus; ajustes de apuração</td>
+        </tr>
+        <tr>
+          <td><code>830</code></td>
+          <td>Exclusão de base de cálculo</td>
+          <td><code>830xxx</code> &#9888; não confirmado</td>
+          <td><span style="color:#b91c1c;font-weight:600">&#10007; N/A</span></td>
+          <td>Distribuição de energia elétrica</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Distinção dos mecanismos tributários</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Mecanismo</th>
+          <th>CST(s)</th>
+          <th>O que afeta</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Redução de alíquota</td>
+          <td><code>200</code> <code>210</code></td>
+          <td>Percentual aplicado sobre a base</td>
+          <td>210 combina também redução de base</td>
+        </tr>
+        <tr>
+          <td>Redução de base de cálculo</td>
+          <td><code>222</code></td>
+          <td>Valor sobre o qual a alíquota incide</td>
+          <td>Alíquota permanece integral</td>
+        </tr>
+        <tr>
+          <td>Exclusão de base</td>
+          <td><code>830</code></td>
+          <td>Parcelas retiradas da base</td>
+          <td>Distinto de reduzir a base (222)</td>
+        </tr>
+        <tr>
+          <td>Alíquota fixa</td>
+          <td><code>220</code></td>
+          <td>Valor fixo por unidade (não %)</td>
+          <td>Não ad valorem</td>
+        </tr>
+        <tr>
+          <td>Alíquota fixa proporcional</td>
+          <td><code>221</code></td>
+          <td>Valor fixo × receita bruta</td>
+          <td>Variante da alíquota fixa</td>
+        </tr>
+        <tr>
+          <td>Diferimento</td>
+          <td><code>510</code></td>
+          <td>Momento do recolhimento (adiado)</td>
+          <td>Imposto não desaparece &mdash; desloca no tempo</td>
+        </tr>
+        <tr>
+          <td>Suspensão</td>
+          <td><code>550</code></td>
+          <td>Exigibilidade (condicionada)</td>
+          <td>Suspensa até evento futuro; distinto de diferimento</td>
+        </tr>
+        <tr>
+          <td>Transferência de crédito</td>
+          <td><code>800</code></td>
+          <td>Créditos entre entidades</td>
+          <td>Evento societário; sem produto envolvido</td>
+        </tr>
+        <tr>
+          <td>Ajustes de apuração</td>
+          <td><code>810</code></td>
+          <td>Saldo de apuração / crédito presumido ZFM</td>
+          <td>Parcialmente em definição no IT</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Dados não confirmados em fonte oficial</h2>
+    <div class="callout callout-red">
+      <strong>&#9888; Atenção &mdash; verificar antes de usar em produção</strong>
+      Os itens abaixo ainda não foram validados diretamente no Informe Técnico 2025.002-RTC ou no portal SVRS:
+      <ul style="margin:10px 0 0">
+        <li>Redação exata e escopo da <strong>CST 210</strong> (fontes divergem)</li>
+        <li><strong>cClassTrib de 6 dígitos individuais</strong> das famílias <code>210xxx</code>, <code>220xxx</code>, <code>221xxx</code>, <code>510xxx</code>, <code>550xxx</code>, <code>800xxx</code>, <code>810xxx</code> e <code>830xxx</code> &mdash; apenas <code>222001</code> e os códigos <code>200009</code>, <code>200010</code>, <code>200032</code>, <code>200053</code> foram validados</li>
+        <li>Parte dos ajustes da família <strong>810</strong> ainda marcada como &ldquo;disponível em breve&rdquo; no Informe Técnico</li>
+      </ul>
+      <p style="margin:12px 0 0"><strong>Não utilize estes códigos em documentos fiscais sem consultar a tabela oficial NCM&rarr;CST&rarr;cClassTrib disponível no portal SVRS / Portal Nacional NF-e.</strong></p>
+    </div>
+
+    <h2>Fontes de referência</h2>
+    <div class="sources">
+      <ul>
+        <li><a href="https://dfe-portal.svrs.rs.gov.br/Cff/ClassificacaoTributaria" target="_blank">Portal SVRS &mdash; Classificação Tributária IBS/CBS</a></li>
+        <li><a href="https://simtax.com.br/reforma/cadastro-cst-e-cclasstrib-na-reforma-tributaria-guia-para-o-setor-farma/" target="_blank">Simtax &mdash; Cadastro CST e cClassTrib na Reforma Tributária: guia para o setor farma</a></li>
+        <li><a href="https://simtax.com.br/reducao-60-ibs-cbs-para-medicamentos/" target="_blank">Simtax &mdash; Redução de 60% de IBS/CBS para medicamentos</a></li>
+        <li><a href="https://www.machadomeyer.com.br/pt/inteligencia-juridica/publicacoes-ij/tributario-ij/divulgada-nova-tabela-de-codigo-de-classificacao-tributaria-do-ibs-e-cbs" target="_blank">Machado Meyer &mdash; Nova tabela de cClassTrib do IBS e CBS</a></li>
+        <li><a href="https://blog.tecnospeed.com.br/tabela-cclasstrib/" target="_blank">Tecnospeed Blog &mdash; Tabela cClassTrib</a></li>
+        <li><a href="https://taxcel.com.br/cclass-cst-ibs-cbs" target="_blank">Taxcel &mdash; cClass, CST, IBS e CBS</a></li>
+        <li><a href="https://www.contabeis.com.br/artigos/72593/reforma-tributaria-reducao-de-60-no-ibs-cbs-para-saude-e-dispositivos-medicos/" target="_blank">Contábeis &mdash; Reforma Tributária: redução de 60% no IBS/CBS para saúde e dispositivos médicos</a></li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Develon Tecnologia &middot; Tecfarma<br>
+    Documento gerado como referência interna (TEC-2135). Dados fiscais devem ser validados contra a fonte oficial vigente antes de uso em produção.<br>
+    Última atualização: 2026-08-24
+  </div>
+</footer>
+</body>
+</html>
