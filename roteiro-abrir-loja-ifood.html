@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro para abrir a loja no Portal iFood (Sandbox &rarr; Produ&ccedil;&atilde;o)</title>
+<style>
+:root{--brand:#0a7d53;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--warn-bg:#fefce8;--warn-border:#fde047;--info-bg:#eff6ff;--info-border:#93c5fd}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:linear-gradient(135deg,#0a7d53,#065f46);color:#fff;padding:48px 24px}
+header a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14px}
+header a:hover{color:#fff}
+header h1{margin:12px 0 8px;font-size:26px;line-height:1.3}
+header p.subtitle{margin:0;opacity:.85;font-size:15px}
+.wrap{max-width:860px;margin:0 auto}
+main{padding:36px 24px}
+h2{font-size:20px;color:var(--brand);margin:36px 0 12px;border-bottom:2px solid var(--line);padding-bottom:6px}
+h2:first-of-type{margin-top:0}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 14px;padding-left:24px}
+li{margin-bottom:6px}
+.lead{font-size:17px;color:var(--ink);margin-bottom:24px}
+.callout{border-radius:10px;padding:18px 20px;margin:20px 0}
+.callout-green{background:#f0fdf4;border-left:4px solid #22c55e}
+.callout-blue{background:var(--info-bg);border-left:4px solid #3b82f6}
+.callout-amber{background:var(--warn-bg);border-left:4px solid #f59e0b}
+.callout-red{background:#fef2f2;border-left:4px solid #ef4444}
+.callout strong{display:block;margin-bottom:4px;font-size:15px}
+code{background:#f1f5f9;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;color:#0f172a}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+thead th{background:var(--brand);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.step-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.breadcrumb{font-size:13px;margin-bottom:20px;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--brand)}
+.ref-box{background:#f1f5f9;border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
+.ref-box h3{margin:0 0 10px;font-size:15px;color:var(--ink)}
+.sources a{color:var(--brand);text-decoration:none}
+.sources a:hover{text-decoration:underline}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:24px;border-top:1px solid var(--line);margin-top:40px}
+@media(max-width:600px){header{padding:32px 16px}header h1{font-size:20px}main{padding:24px 16px}thead th,tbody td{padding:7px 10px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="index.html">&larr; Voltar ao &iacute;ndice</a>
+    <h1>Roteiro para abrir a loja no Portal iFood<br>
+      <small style="font-size:18px;font-weight:400">Sandbox &rarr; Produ&ccedil;&atilde;o</small></h1>
+    <p class="subtitle">Guia passo a passo de integra&ccedil;&atilde;o da farm&aacute;cia ao iFood &mdash; &uacute;ltima atualiza&ccedil;&atilde;o: 2026-09-01</p>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="breadcrumb">
+      <a href="index.html">In&iacute;cio</a> &rsaquo; Roteiro iFood
+    </div>
+    <p class="lead">Este roteiro descreve o processo completo para registrar e ativar uma farm&aacute;cia/drogaria no Portal do Parceiro iFood, configurar a integra&ccedil;&atilde;o via API (OAuth2) e homologar o fluxo de pedidos antes de migrar para o ambiente de produ&ccedil;&atilde;o.</p>
+    <div class="callout callout-amber">
+      <strong>Ambiente Sandbox primeiro</strong>
+      Realize todas as etapas de configura&ccedil;&atilde;o e homologa&ccedil;&atilde;o no ambiente Sandbox antes de ativar em produ&ccedil;&atilde;o. O Sandbox permite simular pedidos sem impacto real e &eacute; obrigat&oacute;rio para aprova&ccedil;&atilde;o de parceiro iFood.
+    </div>
+    <h2>1. Pr&eacute;-requisitos</h2>
+    <div class="step-card">
+      <p>Garanta que os itens abaixo est&atilde;o dispon&iacute;veis antes de iniciar:</p>
+      <ul>
+        <li><strong>CNPJ ativo</strong> e dados cadastrais completos da farm&aacute;cia: raz&atilde;o social, endere&ccedil;o, e-mail e telefone de contato.</li>
+        <li>Acesso ao <strong>Portal do Parceiro iFood</strong> (loja) &mdash; utilizado para gerenciar pedidos e card&aacute;pio manualmente.</li>
+        <li>Acesso ao <strong>Portal do Desenvolvedor iFood</strong> (<code>developer.ifood.com.br</code>) &mdash; onde o aplicativo de integra&ccedil;&atilde;o &eacute; criado e as credenciais OAuth2 s&atilde;o obtidas.</li>
+        <li>Credenciais administrativas do Tecfarma para cadastrar as configura&ccedil;&otilde;es de integra&ccedil;&atilde;o.</li>
+      </ul>
+    </div>
+    <h2>2. Integra&ccedil;&atilde;o &mdash; app e credenciais</h2>
+    <div class="step-card">
+      <p>No <strong>Portal do Desenvolvedor</strong> (<code>developer.ifood.com.br</code>):</p>
+      <ol>
+        <li>Crie (ou reutilize) um <strong>aplicativo</strong> de integra&ccedil;&atilde;o. Anote o <code>client_id</code> e o <code>client_secret</code> gerados &mdash; s&atilde;o as credenciais do fluxo OAuth2 <em>Client Credentials</em>.</li>
+        <li>Selecione o ambiente <strong>Sandbox</strong> para homologa&ccedil;&atilde;o. O ambiente de Produ&ccedil;&atilde;o s&oacute; deve ser ativado ap&oacute;s aprova&ccedil;&atilde;o do fluxo completo.</li>
+        <li>No Tecfarma, cadastre as credenciais na tabela <code>ConfiguracaoxFarmacia</code> usando as chaves:
+          <ul>
+            <li><code>CONFIGURACAO_APLICATIVO_IFOOD_API_HOST</code></li>
+            <li><code>CONFIGURACAO_APLICATIVO_IFOOD_CLIENTID</code></li>
+            <li><code>CONFIGURACAO_APLICATIVO_IFOOD_CLIENTSECRET</code></li>
+            <li><code>CONFIGURACAO_APLICATIVO_IFOOD_MERCHANTUUID</code></li>
+          </ul>
+          Essas s&atilde;o as chaves que o m&oacute;dulo <strong>tecfarma_iFood</strong> l&ecirc; para autenticar e chamar a API.
+        </li>
+      </ol>
+      <div class="callout callout-blue">
+        <strong>Fluxo de autentica&ccedil;&atilde;o</strong>
+        O m&oacute;dulo executa <em>Client Credentials Grant</em>: POST no endpoint de token do iFood com <code>client_id</code> + <code>client_secret</code> &rarr; recebe <code>access_token</code> com TTL curto &rarr; usa o token em todas as chamadas subsequentes (polling de eventos, consulta de pedido, cat&aacute;logo).
+      </div>
+    </div>
+    <h2>3. Criar/associar o merchant (a loja)</h2>
+    <div class="step-card">
+      <ol>
+        <li>No <strong>Portal do Parceiro</strong>, crie a <strong>loja de teste</strong> no Sandbox. Para go-live, confirme que a loja real j&aacute; est&aacute; cadastrada e vinculada ao CNPJ da farm&aacute;cia.</li>
+        <li>No <strong>Portal do Desenvolvedor</strong>, vincule o <em>merchant</em> ao aplicativo criado na etapa anterior.</li>
+        <li>Anote o <strong>merchantId / merchantUUID</strong> &mdash; identificador usado em todas as chamadas de pedidos e cat&aacute;logo. Cadastre-o na chave <code>CONFIGURACAO_APLICATIVO_IFOOD_MERCHANTUUID</code>.</li>
+      </ol>
+      <div class="callout callout-amber">
+        <strong>Aten&ccedil;&atilde;o</strong>
+        O merchantUUID do Sandbox &eacute; diferente do de Produ&ccedil;&atilde;o. Ao migrar de ambiente, atualize o valor na tabela <code>ConfiguracaoxFarmacia</code>.
+      </div>
+    </div>
+    <h2>4. Configurar a loja</h2>
+    <div class="step-card">
+      <p>No <strong>Portal do Parceiro</strong>, preencha as configura&ccedil;&otilde;es da loja:</p>
+      <ul>
+        <li><strong>Endere&ccedil;o</strong> completo (bairro, CEP, ponto de refer&ecirc;ncia).</li>
+        <li><strong>&Aacute;rea / raio de entrega</strong> &mdash; pol&iacute;gono ou raio em km ao redor da farm&aacute;cia.</li>
+        <li><strong>Hor&aacute;rio de funcionamento</strong> por dia da semana (afeta quando a loja aparece como &ldquo;aberta&rdquo; no app).</li>
+        <li><strong>Categoria</strong>: farm&aacute;cia ou drogaria.</li>
+        <li><strong>Formas de pagamento</strong> aceitas (cart&atilde;o, Pix, dinheiro, vale-refei&ccedil;&atilde;o etc.).</li>
+        <li><strong>Taxa de entrega</strong> (fixa, por km ou faixa de dist&acirc;ncia).</li>
+      </ul>
+    </div>
+    <h2>5. Card&aacute;pio (cat&aacute;logo)</h2>
+    <div class="step-card">
+      <p>O cat&aacute;logo iFood &eacute; gerenciado em tempo real: cada altera&ccedil;&atilde;o de item (nome, pre&ccedil;o, disponibilidade) &eacute; enviada individualmente e atualiza os &iacute;ndices de busca imediatamente; opera&ccedil;&otilde;es em lote usam processamento ass&iacute;ncrono (<em>batch</em>).</p>
+      <ol>
+        <li>Monte <strong>categorias</strong> e <strong>itens</strong> com nome, pre&ccedil;o e status de disponibilidade.</li>
+        <li>Use a funcionalidade <strong>&ldquo;Sincronizar Card&aacute;pio&rdquo;</strong> do m&oacute;dulo tecfarma_iFood (Op&ccedil;&atilde;o A, PR #950) para:
+          <ul>
+            <li>Resolver o <code>catalogId</code> da loja no iFood.</li>
+            <li>Identificar itens n&atilde;o-vend&aacute;veis (sem EAN, sem pre&ccedil;o ou fora de estoque).</li>
+            <li>Publicar ou atualizar os itens no cat&aacute;logo do iFood.</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="callout callout-blue">
+        <strong>Dica</strong>
+        Revise os itens com flag &ldquo;n&atilde;o-vend&aacute;vel&rdquo; antes de sincronizar. Produtos sem EAN cadastrado ou sem pre&ccedil;o v&aacute;lido s&atilde;o rejeitados pela API do iFood.
+      </div>
+    </div>
+    <h2>6. Homologar o fluxo de pedidos (Sandbox)</h2>
+    <div class="step-card">
+      <p>O m&oacute;dulo tecfarma_iFood executa o seguinte ciclo de forma autom&aacute;tica:</p>
+      <ol>
+        <li><strong>Auth</strong> &rarr; obt&eacute;m o <code>access_token</code> via OAuth2.</li>
+        <li><strong>Poll</strong> &rarr; consulta a fila de eventos de pedidos do merchant.</li>
+        <li><strong>Consultar pedido</strong> &rarr; busca os detalhes do pedido recebido.</li>
+        <li><strong>Gerar Pr&eacute;-Venda</strong> &rarr; cria a pr&eacute;-venda no Tecfarma para o operador confirmar.</li>
+        <li><strong>Acknowledgment</strong> &rarr; confirma o recebimento do evento na fila do iFood.</li>
+      </ol>
+      <p>Para homologar:</p>
+      <ul>
+        <li>Simule um pedido no Sandbox pelo Portal do Desenvolvedor ou pela ferramenta de testes do iFood.</li>
+        <li>Verifique que o pedido &eacute; capturado, a Pr&eacute;-Venda &eacute; criada e o <em>acknowledgment</em> &eacute; enviado.</li>
+        <li>Valide o ciclo de vida do pedido (fases previstas para a Fase 2 do m&oacute;dulo):<br>
+          Confirmar (prazo: at&eacute; 8 min) &rarr; Iniciar Prepara&ccedil;&atilde;o &rarr; Notificar Pronto (TAKEOUT / DINE_IN) &rarr; Despacho / Entrega.
+        </li>
+      </ul>
+      <div class="callout callout-green">
+        <strong>Status atual do m&oacute;dulo</strong>
+        O tecfarma_iFood j&aacute; captura eventos e gera a Pr&eacute;-Venda (fluxo base). Os passos de ciclo de vida (confirma&ccedil;&atilde;o, preparo, despacho) s&atilde;o da Fase 2 e ser&atilde;o adicionados em vers&otilde;es futuras.
+      </div>
+    </div>
+    <h2>7. Abrir a loja (go-live)</h2>
+    <div class="step-card">
+      <ol>
+        <li>Conclu&iacute;da a homologa&ccedil;&atilde;o no Sandbox sem erros, substitua as credenciais de Sandbox pelas de <strong>Produ&ccedil;&atilde;o</strong> na tabela <code>ConfiguracaoxFarmacia</code>.</li>
+        <li>Atualize o <code>CONFIGURACAO_APLICATIVO_IFOOD_API_HOST</code> para o host de produ&ccedil;&atilde;o (conforme documenta&ccedil;&atilde;o vigente do iFood).</li>
+        <li>No <strong>Portal do Parceiro</strong>, defina a loja como <strong>dispon&iacute;vel / aberta</strong> dentro do hor&aacute;rio de funcionamento configurado.</li>
+        <li>Monitore o painel de pedidos e os logs do m&oacute;dulo durante as primeiras horas para confirmar estabilidade.</li>
+      </ol>
+      <div class="callout callout-red">
+        <strong>Importante</strong>
+        Nunca altere as credenciais em produ&ccedil;&atilde;o durante hor&aacute;rio de pico. Prefira janelas de baixo movimento (madrugada ou in&iacute;cio da manh&atilde;).
+      </div>
+    </div>
+    <h2>8. Checklist final</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:28%">Item</th>
+          <th>Descri&ccedil;&atilde;o</th>
+          <th style="width:10%;text-align:center">OK?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Credenciais em produ&ccedil;&atilde;o</strong></td>
+          <td><code>client_id</code>, <code>client_secret</code>, <code>merchantUUID</code> e host de produ&ccedil;&atilde;o atualizados em <code>ConfiguracaoxFarmacia</code>.</td>
+          <td style="text-align:center">&square;</td>
+        </tr>
+        <tr>
+          <td><strong>Merchant vinculado</strong></td>
+          <td>Loja real associada ao aplicativo no Portal do Desenvolvedor; merchantUUID correto confirmado.</td>
+          <td style="text-align:center">&square;</td>
+        </tr>
+        <tr>
+          <td><strong>Card&aacute;pio publicado e consistente</strong></td>
+          <td>&ldquo;Sincronizar Card&aacute;pio&rdquo; executado sem erros; itens n&atilde;o-vend&aacute;veis revisados ou removidos.</td>
+          <td style="text-align:center">&square;</td>
+        </tr>
+        <tr>
+          <td><strong>Hor&aacute;rio e &aacute;rea de entrega</strong></td>
+          <td>Dias, hor&aacute;rios de abertura/fechamento e raio de entrega configurados no Portal do Parceiro.</td>
+          <td style="text-align:center">&square;</td>
+        </tr>
+        <tr>
+          <td><strong>Polling rodando e confirmando pedidos</strong></td>
+          <td>Servi&ccedil;o tecfarma_iFood em execu&ccedil;&atilde;o; polling ativo; pelo menos um pedido de teste processado com Pr&eacute;-Venda criada e acknowledgment enviado.</td>
+          <td style="text-align:center">&square;</td>
+        </tr>
+        <tr>
+          <td><strong>Impress&atilde;o de comanda</strong></td>
+          <td>Impress&atilde;o da comanda do pedido iFood testada e conferida (dados do cliente, itens, endere&ccedil;o de entrega).</td>
+          <td style="text-align:center">&square;</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Refer&ecirc;ncias do sistema</h2>
+    <div class="ref-box sources">
+      <h3>Projeto tecfarma_iFood</h3>
+      <ul>
+        <li><strong>Implementa&ccedil;&atilde;o do m&oacute;dulo</strong> &mdash; PR de refer&ecirc;ncia: <a href="https://github.com/Develon-Tecnologia/tecfarma/pull/950" target="_blank">PR #950 &mdash; Publicar/Sincronizar Card&aacute;pio (TEC-1036)</a>.</li>
+        <li><strong>Configura&ccedil;&otilde;es de integra&ccedil;&atilde;o</strong> &mdash; Tabela <code>ConfiguracaoxFarmacia</code>: chaves <code>CONFIGURACAO_APLICATIVO_IFOOD_API_HOST</code>, <code>CONFIGURACAO_APLICATIVO_IFOOD_CLIENTID</code>, <code>CONFIGURACAO_APLICATIVO_IFOOD_CLIENTSECRET</code>, <code>CONFIGURACAO_APLICATIVO_IFOOD_MERCHANTUUID</code>.</li>
+        <li><strong>Ticket Jira</strong> &mdash; <a href="https://hdamasceno.atlassian.net/browse/TEC-1036" target="_blank">TEC-1036 &mdash; Publicar/Sincronizar Card&aacute;pio iFood</a>.</li>
+      </ul>
+    </div>
+    <div class="callout callout-amber" style="margin-top:32px">
+      <strong>Nota</strong>
+      Refer&ecirc;ncia interna &mdash; nomes de menu no Portal iFood podem variar; confirmar no portal vigente.
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    Develon Tecnologia &middot; Tecfarma<br>
+    Documento de refer&ecirc;ncia interna (TEC-1036). Nomes de menu no Portal iFood podem variar; confirmar no portal vigente.<br>
+    &Uacute;ltima atualiza&ccedil;&atilde;o: 2026-09-01
+  </div>
+</footer>
+</body>
+</html>
