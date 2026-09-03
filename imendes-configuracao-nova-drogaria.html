@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como configurar a iMendes em uma nova Drogaria — Tecfarma</title>
+<style>
+:root{--brand:#0a7d53;--brand-dark:#065f46;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--warn:#b45309;--warn-bg:#fffbeb;--warn-border:#fde68a;--err:#991b1b;--err-bg:#fef2f2;--err-border:#fecaca;--info:#1d4ed8;--info-bg:#eff6ff;--code-bg:#f1f5f9}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6}
+header{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;padding:48px 24px}
+.wrap{max-width:960px;margin:0 auto}
+header h1{margin:0 0 8px;font-size:26px}
+header p{margin:0;opacity:.9;font-size:15px}
+.breadcrumb{font-size:13px;opacity:.75;margin-bottom:12px}
+.breadcrumb a{color:#fff;text-decoration:none}
+main{padding:32px 24px 64px}
+h2{font-size:20px;color:var(--brand-dark);margin:40px 0 12px;border-bottom:2px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin:24px 0 8px;color:var(--ink)}
+p{margin:0 0 12px}
+a{color:var(--brand)}
+code{background:var(--code-bg);border-radius:4px;padding:1px 5px;font-size:13px;font-family:Consolas,monospace}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:13px;font-family:Consolas,monospace;line-height:1.5;margin:0 0 16px}
+/* callouts */
+.note{background:var(--info-bg);border-left:4px solid var(--info);border-radius:0 6px 6px 0;padding:12px 16px;margin:16px 0;font-size:14px}
+.warn{background:var(--warn-bg);border-left:4px solid var(--warn);border-radius:0 6px 6px 0;padding:12px 16px;margin:16px 0;font-size:14px}
+.confirmar{background:#fdf4ff;border-left:4px solid #9333ea;border-radius:0 6px 6px 0;padding:12px 16px;margin:16px 0;font-size:14px}
+.confirmar strong{color:#7e22ce}
+/* tables */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+th{background:var(--brand);color:#fff;padding:10px 12px;text-align:left;font-weight:600}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#f8fafc}
+.obrig-sim{color:#0a7d53;font-weight:700}
+.obrig-nao{color:var(--muted)}
+/* steps */
+ol.steps{padding-left:0;list-style:none;counter-reset:step}
+ol.steps>li{counter-increment:step;display:flex;gap:16px;margin:0 0 20px}
+ol.steps>li::before{content:counter(step);min-width:32px;height:32px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;margin-top:2px}
+ol.steps>li .step-body{flex:1}
+ol.steps>li .step-body strong{display:block;margin-bottom:4px;font-size:15px}
+/* endpoint table badges */
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-right:4px}
+.badge-get{background:#d1fae5;color:#065f46}
+.badge-post{background:#dbeafe;color:#1e40af}
+.badge-v1{background:#e0e7ff;color:#3730a3}
+.badge-v3{background:#fde8ff;color:#7e22ce}
+.badge-warn{background:#fef3c7;color:#92400e}
+/* troubleshoot */
+.ts-item{border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.ts-q{background:var(--card);padding:12px 16px;font-weight:600;cursor:default;font-size:14px}
+.ts-a{background:#fafafa;padding:12px 16px;font-size:14px;border-top:1px solid var(--line)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:24px;border-top:1px solid var(--line)}
+.source-ref{font-style:italic;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="breadcrumb"><a href="./index.html">← Documentação Tecfarma</a></div>
+    <h1>Como configurar a iMendes em uma nova Drogaria</h1>
+    <p>Guia passo a passo para o Suporte Técnico habilitar a integração iMendes em uma farmácia recém-contratada.</p>
+  </div>
+</header>
+<main>
+<div class="wrap">
+
+<!-- ═══════════════════════════ VISÃO GERAL ═══════════════════════════ -->
+<h2>Visão Geral</h2>
+<p>A integração <strong>iMendes</strong> (LabFisc — <code>consultatributos.com.br</code>) é o serviço de saneamento fiscal do Tecfarma. Ela consulta regras tributárias (NCM, CEST, CST, CSOSN, alíquotas PIS/COFINS/ICMS, CFOP) para os produtos cadastrados na drogaria e atualiza os campos fiscais automaticamente.</p>
+<p>A integração é controlada por <strong>dois pontos de configuração distintos</strong>:</p>
+<ul>
+  <li><strong>Tabela <code>Imendes</code></strong> — dados fiscais da drogaria (regime, CRT, CNAE, ambiente). Preenchida via tela de configuração no Retaguarda.</li>
+  <li><strong>Tabela <code>Configuracao</code></strong> — chaves de comportamento automático (aplicar regras após entrada de NF, após salvar produto).</li>
+</ul>
+
+<div class="note"><strong>Autenticação:</strong> O Tecfarma autentica na API iMendes usando credenciais de <em>parceiro</em> da Develon (hardcoded no sistema). O CNPJ da drogaria é verificado via endpoint <code>GetStatusCliente</code> — a drogaria precisa estar previamente contratada com a iMendes/LabFisc.</div>
+
+<!-- ═══════════════════════════ PRÉ-REQUISITOS ═══════════════════════════ -->
+<h2>Pré-requisitos</h2>
+<ol>
+  <li><strong>Contrato ativo com a iMendes (LabFisc)</strong> — o CNPJ da drogaria deve estar habilitado no sistema iMendes antes de qualquer configuração no Tecfarma.<br>Contato iMendes: <code>(35) 9870-9462</code> · <code>financeiro@labfisc.com.br</code> <span class="source-ref">[FrmImendesPainel.cs:1053]</span></li>
+  <li><strong>Cadastro da Empresa preenchido</strong> — a farmácia deve ter CNPJ, UF e Regime Tributário definidos na tela Cadastro → Empresa antes de abrir a configuração iMendes.</li>
+  <li><strong>Acesso de Suporte</strong> — a tela de configuração iMendes exige login de Suporte Técnico (credenciais do colaborador de suporte).</li>
+  <li><strong>Conectividade HTTP</strong> — o servidor Tecfarma precisa acessar <code>http://consultatributos.com.br:8080/</code> na porta 8080.</li>
+</ol>
+
+<!-- ═══════════════════════════ TABELA DE CHAVES ═══════════════════════════ -->
+<h2>Tabela de Chaves de Configuração</h2>
+
+<h3>Tabela <code>Imendes</code> — dados principais</h3>
+<p class="source-ref">Fonte: NTecfarma.Imendes.CRUD.cs:15–78 · FrmImendesConfiguracao_Cadastro.cs · Designer.cs:643–819</p>
+<table>
+  <tr><th>Campo (coluna)</th><th>Campo na tela</th><th>Formato / Valores válidos</th><th>Exemplo</th><th>Obrigatório</th></tr>
+  <tr>
+    <td><code>cnae</code></td>
+    <td>CNAE</td>
+    <td>7 dígitos numéricos (máscara <code>9999999</code>)</td>
+    <td><code>4771701</code></td>
+    <td class="obrig-sim">Sim</td>
+  </tr>
+  <tr>
+    <td><code>crt</code></td>
+    <td>CRT</td>
+    <td><code>1</code> = Simples Nacional<br><code>2</code> = Simples Nacional (Excesso Receita Bruta)<br><code>3</code> = Regime Normal</td>
+    <td><code>1</code></td>
+    <td class="obrig-sim">Sim</td>
+  </tr>
+  <tr>
+    <td><code>regimeTrib</code></td>
+    <td>Regime Tributário</td>
+    <td><code>R</code> = Lucro Real<br><code>P</code> = Lucro Presumido<br><code>S</code> = Simples Nacional<br><em>Deve coincidir com o cadastro Empresa</em></td>
+    <td><code>S</code></td>
+    <td class="obrig-sim">Sim</td>
+  </tr>
+  <tr>
+    <td><code>ambiente</code></td>
+    <td>Ambiente</td>
+    <td><code>0</code> = Não Contratado (bloqueia consultas)<br><code>1</code> = Homologação<br><code>2</code> = Produção</td>
+    <td><code>2</code></td>
+    <td class="obrig-sim">Sim</td>
+  </tr>
+  <tr>
+    <td><code>contribuinte</code></td>
+    <td>Contribuinte do ICMS?</td>
+    <td><code>0</code> = Não Contribuinte<br><code>1</code> = Contribuinte de ICMS</td>
+    <td><code>0</code></td>
+    <td class="obrig-nao">Não</td>
+  </tr>
+  <tr>
+    <td><code>codFaixa</code></td>
+    <td>Código Faixa Enquadramento</td>
+    <td>Texto livre. Lucro Real: <code>99</code> · Lucro Presumido: <code>98</code> · Simples: deixar vazio</td>
+    <td><em>(vazio para Simples)</em></td>
+    <td class="obrig-nao">Não</td>
+  </tr>
+  <tr>
+    <td><code>regimeEspecial</code></td>
+    <td>Regime Especial</td>
+    <td>Texto livre (código de regime especial estadual, se houver)</td>
+    <td><em>(vazio)</em></td>
+    <td class="obrig-nao">Não</td>
+  </tr>
+  <tr>
+    <td><code>usuario</code></td>
+    <td>Usuário</td>
+    <td>Texto livre</td>
+    <td>—</td>
+    <td class="obrig-nao">A confirmar ⚠</td>
+  </tr>
+  <tr>
+    <td><code>senha</code></td>
+    <td>Senha</td>
+    <td>Texto livre</td>
+    <td>—</td>
+    <td class="obrig-nao">A confirmar ⚠</td>
+  </tr>
+</table>
+
+<div class="confirmar">
+  <strong>⚠ A confirmar — campos <code>usuario</code> e <code>senha</code>:</strong> A tela exibe esses campos, mas no código atual as chamadas à API iMendes usam as credenciais de <em>parceiro</em> da Develon (hardcoded), e os campos <code>usuario</code>/<code>senha</code> da tabela estão comentados nas chamadas. <span class="source-ref">[FrmImendesPainel.cs:352–360, comentário no bloco de código]</span> — Confirmar com dev se esses campos ainda têm uso.
+</div>
+
+<h3>Tabela <code>Configuracao</code> — comportamentos automáticos</h3>
+<p class="source-ref">Fonte: ChaveConfiguracao.PBM.BIG.cs:19–20</p>
+<table>
+  <tr><th>Chave</th><th>Tipo</th><th>Descrição</th><th>Obrigatório</th></tr>
+  <tr>
+    <td><code>CONFIGURACAO_APLICATIVO_IMENDES_CORRIGIRAPOSENTRADANOTA</code></td>
+    <td>BOOLEAN</td>
+    <td>Aplica regras fiscais da iMendes automaticamente após entrada de nota fiscal de compra</td>
+    <td class="obrig-nao">Não (opcional)</td>
+  </tr>
+  <tr>
+    <td><code>CONFIGURACAO_APLICATIVO_IMENDES_CORRIGIRAPOSCADASTRARPRODUTO</code></td>
+    <td>BOOLEAN</td>
+    <td>Aplica regras fiscais da iMendes automaticamente após salvar/editar um produto</td>
+    <td class="obrig-nao">Não (opcional)</td>
+  </tr>
+</table>
+
+<!-- ═══════════════════════════ PASSO-A-PASSO ═══════════════════════════ -->
+<h2>Passo a Passo — Configurar iMendes em uma Nova Drogaria</h2>
+<ol class="steps">
+  <li>
+    <div class="step-body">
+      <strong>Confirmar contrato ativo com a iMendes</strong>
+      Antes de qualquer configuração, verifique com a LabFisc se o CNPJ da drogaria está habilitado: ligue para <strong>(35) 9870-9462</strong> ou envie e-mail para <strong>financeiro@labfisc.com.br</strong>. Sem contrato ativo, o botão de consulta ficará bloqueado com a mensagem <em>"Consulta impedida"</em>.
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>Verificar cadastro da Empresa</strong>
+      No Retaguarda, acesse <strong>Cadastro → Empresa</strong> e confirme que CNPJ, UF e <strong>Regime Tributário</strong> estão preenchidos corretamente (Simples Nacional / Lucro Presumido / Lucro Real). O regime tributário da iMendes <em>deve coincidir</em> com o do cadastro Empresa — o sistema bloqueia caso haja divergência.
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>Abrir a tela de configuração iMendes</strong>
+      No menu principal do Retaguarda, localize o botão <strong>iMendes Configuração</strong> (<code>brbtniMendesConfiguracao</code>). O sistema solicitará as credenciais do Suporte Técnico. Após autenticar, abrirá a tela <strong>FrmImendesConfiguracao_Cadastro</strong>.
+      <span class="source-ref">[FrmPrincipal.cs:10419–10446]</span>
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>Preencher os campos obrigatórios</strong>
+      <table>
+        <tr><th>Campo na tela</th><th>O que preencher</th></tr>
+        <tr><td>Regime Tributário</td><td>Selecione igual ao cadastro da Empresa (bloqueado se já igual)</td></tr>
+        <tr><td>CRT</td><td>Simples Nacional → <strong>1</strong> · Lucro Presumido/Real → <strong>3</strong></td></tr>
+        <tr><td>CNAE</td><td>7 dígitos. Para farmácias/drogarias varejistas: <strong>4771701</strong></td></tr>
+        <tr><td>Ambiente</td><td>Selecione <strong>2 - PRODUÇÃO</strong> (produção real) ou <strong>1 - HOMOLOGAÇÃO</strong> para testes</td></tr>
+        <tr><td>Contribuinte do ICMS</td><td>Normalmente <strong>0 - Não Contribuinte</strong> para farmácias Simples Nacional</td></tr>
+        <tr><td>Código Faixa Enquadramento</td><td>Deixar vazio para Simples Nacional · <code>99</code> para Lucro Real · <code>98</code> para Lucro Presumido</td></tr>
+        <tr><td>Regime Especial</td><td>Deixar vazio (preencher somente se a drogaria tiver regime especial estadual)</td></tr>
+      </table>
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>Salvar a configuração</strong>
+      Clique em <strong>Salvar</strong>. O sistema grava na tabela <code>Imendes</code> (INSERT se primeira vez, UPDATE se já existia). Um registro na tabela com <code>ambiente ≠ "0"</code> e <code>cnae</code> preenchido é o que habilita as operações iMendes.
+      <span class="source-ref">[NTecfarma.Imendes.CRUD.cs:139–191 · Imendes_ServicoAtivo:420–436]</span>
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>Testar conectividade — verificar status do cliente</strong>
+      Acesse o <strong>Painel iMendes</strong> (menu Fiscal → iMendes). O sistema chama automaticamente <code>GetStatusCliente/{cnpj}</code>. Se retornar sucesso, os botões de consulta ficam habilitados. Se aparecer mensagem de erro, verifique o contrato com a LabFisc.
+      <span class="source-ref">[FrmImendesPainel.cs:1026–1075 · Simulador.cs:213–247]</span>
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>Realizar a primeira consulta em lote</strong>
+      No Painel iMendes, aba <strong>Consulta em Lote</strong>: adicione produtos manualmente ou use o botão "Produtos Alterados" para carregar produtos com regras fiscais pendentes. Clique em <strong>Confirmar Consulta</strong> para enviar ao servidor iMendes. Após retorno, clique em <strong>Aplicar Correções</strong> para atualizar NCM, CEST, CST, CSOSN, alíquotas no banco de dados.
+    </div>
+  </li>
+  <li>
+    <div class="step-body">
+      <strong>(Opcional) Habilitar aplicação automática</strong>
+      Para que a iMendes corrija automaticamente os produtos em eventos futuros, configure as chaves na tabela <code>Configuracao</code>:<br><br>
+      <code>CONFIGURACAO_APLICATIVO_IMENDES_CORRIGIRAPOSENTRADANOTA = true</code> — aplica após entrada de NF de compra<br>
+      <code>CONFIGURACAO_APLICATIVO_IMENDES_CORRIGIRAPOSCADASTRARPRODUTO = true</code> — aplica após salvar produto
+      <span class="source-ref">[ChaveConfiguracao.PBM.BIG.cs:19–20]</span>
+    </div>
+  </li>
+</ol>
+
+<!-- ═══════════════════════════ ENDPOINTS ═══════════════════════════ -->
+<h2>Endpoints e Versões (TEC-2111 — v1 produção vs v3 _Versao2)</h2>
+<p><strong>Base URL:</strong> <code>http://consultatributos.com.br:8080/</code></p>
+<p class="source-ref">Fonte: NTecfarma.Imendes.Simulador.cs:174, 220, 256, 306, 351, 393, 438</p>
+
+<div class="warn">
+  <strong>Atenção TEC-2111 — Discrepância de versão de endpoint:</strong> O manual iMendes "API Saneamento 2.0" referencia <code>api/v2/RegrasFiscais</code>, porém o código implementa dois caminhos distintos: o endpoint ativo em produção usa <code>api/v1/public/RegrasFiscais</code>, e o endpoint experimental <code>_Versao2</code> usa <code>api/v3/public/SaneamentoGrades</code>. Em produção atual, apenas o v1 é chamado.
+</div>
+
+<table>
+  <tr><th>Método</th><th>Endpoint</th><th>Função</th><th>Status</th><th>Fonte no código</th></tr>
+  <tr>
+    <td><span class="badge badge-get">GET</span></td>
+    <td><code>api/v1/public/GetStatusCliente/{cnpj}</code></td>
+    <td>Verifica se o CNPJ está contratado e ativo na iMendes</td>
+    <td><span class="badge badge-v1">v1 — produção</span></td>
+    <td class="source-ref">Simulador.cs:220</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-post">POST</span></td>
+    <td><code>api/v1/public/RegrasFiscais</code></td>
+    <td>Consulta regras fiscais por lote de produtos (endpoint principal — <code>Imendentes_SaneamentoGrades</code>)</td>
+    <td><span class="badge badge-v1">v1 — produção</span></td>
+    <td class="source-ref">Simulador.cs:393</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-post">POST</span></td>
+    <td><code>api/v1/public/EnviaRecebeDados</code></td>
+    <td>Multiplos serviços: <code>HISTORICOACESSO</code>, <code>ALTERADOS</code>, <code>DESCRPRODUTOS</code>, <code>REMOVEDEVOLVIDOS</code></td>
+    <td><span class="badge badge-v1">v1 — produção</span></td>
+    <td class="source-ref">Simulador.cs:175, 256, 306, 351</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-post">POST</span></td>
+    <td><code>api/v3/public/SaneamentoGrades</code></td>
+    <td>Versão experimental <code>_Versao2</code> — body diferente (<code>emit</code>, <code>perfil</code>, <code>produtos</code>). <strong>Não chamado em produção atualmente.</strong> Body não documentado.</td>
+    <td><span class="badge badge-v3">v3 — experimental (TEC-2111)</span></td>
+    <td class="source-ref">Simulador.cs:438</td>
+  </tr>
+</table>
+
+<h3>Autenticação na API</h3>
+<p>Todas as chamadas usam headers HTTP <code>login</code> e <code>senha</code>. O sistema usa as <strong>credenciais de parceiro da Develon</strong> (hardcoded em <code>NTecfarma.Imendes.Simulador.cs:12–13</code>), não as credenciais da drogaria:</p>
+<pre>ImendesParceiroLogin = "07195280000180"   // CNPJ Develon (parceiro)
+ImendesParceiroSenha = "vUBRE7t5jGTB"</pre>
+<p>O CNPJ da <em>drogaria</em> é enviado no <strong>body</strong> da requisição para verificação de contrato — não no header de autenticação.</p>
+
+<h3>Body da requisição RegrasFiscais (v1)</h3>
+<p class="source-ref">Fonte: Simulador.cs:49–97 — <code>Imendentes_SaneamentoGrades_getJsonEnvio</code></p>
+<pre>{
+  "cabecalho": {
+    "cnpj":          "CNPJ_DA_DROGARIA",   // apenas dígitos
+    "cnae":          "4771701",            // 7 dígitos, campo Imendes.cnae
+    "crt":           "1",                  // 1/2/3 — campo Imendes.crt
+    "regimeEspecial":"",                   // campo Imendes.regimeEspecial
+    "codFaixa":      "",                   // campo Imendes.codFaixa
+    "regimeTrib":    "S",                  // R/P/S — campo Imendes.regimeTrib
+    "amb":           "2"                   // campo Imendes.ambiente
+  },
+  "uf": ["MG"],                            // UF da farmácia (da tabela farmacias)
+  "produto": [
+    {
+      "codigo":     "7898403462708",        // EAN ou código interno ou código iMendes
+      "descricao":  "NOME DO PRODUTO",     // sem acentos e sem símbolos
+      "tipoCodigo": "0"                    // 0=EAN · 1=interno · 2=código iMendes
+    }
+  ]
+}</pre>
+
+<!-- ═══════════════════════════ TROUBLESHOOTING ═══════════════════════════ -->
+<h2>Troubleshooting Comum</h2>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "O serviço de atualização de tributos iMendes não foi configurado."</div>
+  <div class="ts-a"><strong>Causa:</strong> A tabela <code>Imendes</code> está vazia (nenhum registro). <strong>Solução:</strong> Execute o passo a passo acima para preencher e salvar a configuração. <span class="source-ref">[CRUD.cs:394–400]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "Não foi definido o CNAE na configuração iMendes."</div>
+  <div class="ts-a"><strong>Causa:</strong> Campo <code>cnae</code> vazio na tabela <code>Imendes</code>. <strong>Solução:</strong> Abra a configuração iMendes e preencha o CNAE com 7 dígitos. Para farmácias varejistas, use <code>4771701</code>. <span class="source-ref">[CRUD.cs:420–427]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "Serviço iMendes não contratado."</div>
+  <div class="ts-a"><strong>Causa:</strong> Campo <code>ambiente = "0"</code> (Não Contratado). <strong>Solução:</strong> Altere o Ambiente para <strong>2 - PRODUÇÃO</strong> na tela de configuração. <span class="source-ref">[CRUD.cs:428–435]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "Consulta impedida" no Painel iMendes</div>
+  <div class="ts-a"><strong>Causa:</strong> O CNPJ da drogaria não está ativo/contratado na iMendes. <strong>Solução:</strong> Entre em contato com a LabFisc: <code>(35) 9870-9462</code> · <code>financeiro@labfisc.com.br</code>. <span class="source-ref">[FrmImendesPainel.cs:1050–1054]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "Regime Tributário deve ser [X]." ao salvar configuração</div>
+  <div class="ts-a"><strong>Causa:</strong> O Regime Tributário selecionado na configuração iMendes diverge do campo <code>REGIME_TRIBUTARIO</code> na tabela <code>farmacias</code>. <strong>Solução:</strong> Verifique o regime no Cadastro → Empresa e selecione o mesmo na configuração iMendes. <span class="source-ref">[FrmImendesConfiguracao_Cadastro.cs:170–188]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "CRT incoerente com o Regime Tributário."</div>
+  <div class="ts-a"><strong>Causa:</strong> Simples Nacional exige CRT 1 ou 2; Lucro Presumido/Real exige CRT 3. <strong>Solução:</strong> Ajuste o CRT conforme o regime. <span class="source-ref">[FrmImendesConfiguracao_Cadastro.cs:176–198]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">❌ "Instabilidade na comunicação entre o tecfarma e o serviço iMendes."</div>
+  <div class="ts-a"><strong>Causa:</strong> Timeout ou erro HTTP na chamada para <code>http://consultatributos.com.br:8080/</code>. O sistema tenta 3 vezes com intervalo de 2 segundos. <strong>Solução:</strong> Verifique conectividade de rede/firewall na porta 8080. Tente novamente mais tarde. <span class="source-ref">[CRUD.cs:469–506 · FrmImendesPainel.cs:363–388]</span></div>
+</div>
+
+<div class="ts-item">
+  <div class="ts-q">⚠ Produtos não têm NCM/CEST/CST atualizados mesmo após consulta</div>
+  <div class="ts-a"><strong>Causa:</strong> A consulta retornou resultados, mas o botão <strong>Aplicar Correções</strong> não foi clicado. <strong>Solução:</strong> No Painel iMendes, após a consulta retornar, clique em <strong>Aplicar Correções</strong> para gravar os dados no banco. <span class="source-ref">[FrmImendesPainel.cs:814–839 · CRUD.cs:285–385]</span></div>
+</div>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+</div>
+</main>
+<footer>
+  <p>Develon Tecnologia · Tecfarma &nbsp;·&nbsp; Publicado em 2026-09-03</p>
+  <p class="source-ref">Fonte: código-fonte tecfarma (branch developer) · NTecfarma.Imendes.CRUD.cs · NTecfarma.Imendes.Simulador.cs · FrmImendesConfiguracao_Cadastro.cs · FrmImendesPainel.cs · ChaveConfiguracao.PBM.BIG.cs</p>
+</footer>
+</body>
+</html>
