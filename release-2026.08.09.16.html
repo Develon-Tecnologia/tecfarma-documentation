@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECFARMA_2 — Release 2026.08.09.16</title>
+<style>
+:root{--brand:#0a7d53;--brand-dark:#065f46;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--added:#dcfce7;--added-border:#16a34a;--fixed:#dbeafe;--fixed-border:#2563eb;--highlight:#fef9c3;--highlight-border:#ca8a04}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;padding:48px 24px}
+.wrap{max-width:860px;margin:0 auto}
+header h1{margin:0 0 6px;font-size:26px;font-weight:700}
+header .sub{margin:0;opacity:.88;font-size:15px}
+.badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:2px 10px;font-size:13px;font-weight:600;margin-top:10px}
+main{padding:36px 24px}
+.headline{background:var(--highlight);border:1px solid var(--highlight-border);border-radius:12px;padding:18px 22px;margin-bottom:28px}
+.headline h2{margin:0 0 6px;font-size:16px;color:#92400e;font-weight:700}
+.headline p{margin:0;font-size:14px;color:#78350f}
+h2.section{font-size:20px;font-weight:700;color:var(--ink);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+h2.section .count{font-size:14px;font-weight:500;color:var(--muted);margin-left:8px}
+.item{border-radius:10px;padding:16px 20px;margin:10px 0;border-left:4px solid}
+.item.added{background:var(--added);border-color:var(--added-border)}
+.item.fixed{background:var(--fixed);border-color:var(--fixed-border)}
+.item-header{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.tec{font-weight:700;font-size:14px;font-family:monospace;letter-spacing:.02em}
+.item.added .tec{color:#15803d}
+.item.fixed .tec{color:#1d4ed8}
+.modulo{font-size:12px;font-weight:600;color:var(--muted);background:#fff;border-radius:4px;padding:1px 7px;border:1px solid var(--line);white-space:nowrap}
+.item p{margin:0;font-size:14px;color:var(--ink)}
+.item p+p{margin-top:6px}
+.item ul{margin:6px 0 0;padding-left:20px;font-size:14px;color:var(--ink)}
+.item ul li{margin-bottom:3px}
+.back{display:inline-block;margin-bottom:24px;color:var(--brand);font-size:14px;text-decoration:none;font-weight:500}
+.back:hover{text-decoration:underline}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:24px;border-top:1px solid var(--line);margin-top:16px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>TECFARMA_2 &mdash; Release 2026.08.09.16</h1>
+    <p class="sub">Publicada em Developer: 07/09/2026</p>
+    <span class="badge">Destaque: TEC-2145 &mdash; Ferramenta de Suporte NFC-e</span>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <a class="back" href="./">&larr; Voltar para a Documentação</a>
+
+    <div class="headline">
+      <h2>&#11088; Destaque da versão &mdash; TEC-2145</h2>
+      <p>Nova ferramenta de suporte para situações críticas de NFC-e: <strong>renumeração de cupom duplicado/não transmitido</strong> (não-colisão escopada por série/ambiente, cascade NFCeProduto, bloqueio de autorizada), <strong>forçar baixa de estoque idempotente</strong> (controlado via vendasxprodutosxhistorico) e <strong>reconciliação atômica das tabelas de finalização de venda</strong> a partir do XML da pré-venda persistido — cobrindo comissão, lotes, PBM, receita, entrega, caixa e cartão.</p>
+    </div>
+
+    <h2 class="section">Novidades <span class="count">5 itens</span></h2>
+
+    <div class="item added">
+      <div class="item-header">
+        <span class="tec">TEC-796</span>
+        <span class="modulo">Retaguarda &rsaquo; Histórico de NF-e</span>
+      </div>
+      <p>Adicionado botão de cancelamento de NF-e diretamente na tela de <strong>Histórico de Notas Fiscais Eletrônicas</strong>. O operador/suporte pode iniciar o cancelamento sem precisar sair do Histórico ou navegar para outra tela.</p>
+    </div>
+
+    <div class="item added">
+      <div class="item-header">
+        <span class="tec">TEC-1360</span>
+        <span class="modulo">Retaguarda &rsaquo; Convênio / PDV</span>
+      </div>
+      <p>Implementado o <strong>campo "Ativo" no cadastro de convênio</strong>, permitindo desativar convênios inutilizados. Impactos:</p>
+      <ul>
+        <li>Listagem e lookup de clientes passam a filtrar convênios inativos automaticamente.</li>
+        <li>O PDV bloqueia vendas a prazo para clientes cujo convênio esteja desativado, evitando uso indevido de convênios obsoletos.</li>
+      </ul>
+    </div>
+
+    <div class="item added">
+      <div class="item-header">
+        <span class="tec">TEC-2133</span>
+        <span class="modulo">NFC-e &rsaquo; Geração de XML</span>
+      </div>
+      <p>Garantida a presença da declaração <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</code> no XML da NFC-e em todos os fluxos: envio à SEFAZ, persistência do XML autorizado e ferramenta de reprocessamento em lote. Resolve erros em sistemas de terceiros que exigem a declaração explícita.</p>
+    </div>
+
+    <div class="item added">
+      <div class="item-header">
+        <span class="tec">TEC-1653</span>
+        <span class="modulo">Retaguarda &rsaquo; Entrada de Nota</span>
+      </div>
+      <p>Campo <strong>Preço Promocional</strong> incluído na tela de <strong>Alteração de Preços na Entrada de Nota</strong>. Permite definir ou atualizar preços promocionais no momento do recebimento da mercadoria, sem etapa adicional no cadastro do produto.</p>
+    </div>
+
+    <div class="item added">
+      <div class="item-header">
+        <span class="tec">TEC-2145</span>
+        <span class="modulo">RotinasSuporte &rsaquo; Ferramenta NFC-e</span>
+      </div>
+      <p>Nova <strong>ferramenta de suporte</strong> com três operações para situações críticas de NFC-e:</p>
+      <ul>
+        <li><strong>Renumerar cupom NFC-e duplicado / não transmitido:</strong> renumeração com garantia de não-colisão escopada pela série e ambiente da PDVEstacao (mesma fonte do gerador de produção), em cascata para NFCeProduto. Disponível em variante sem linha NFCe. NFC-e já autorizada é bloqueada; operação executada em transação única atômica com idempotência por produto.</li>
+        <li><strong>Forçar baixa de estoque (idempotente):</strong> executa a baixa de estoque para vendas autorizadas com NFC-e autorizada e não cancelada, controlada via vendasxprodutosxhistorico para garantir idempotência por produto.</li>
+        <li><strong>Reconciliação das tabelas de finalização:</strong> reconstrói o OCupomFiscal a partir do XML da pré-venda (PrevendaxArquivoXml) e reconcilia as tabelas vendasxprodutosxzerados, funcionariosxcomissao, vendasxprodutosxlotes, vendasxhistoricoxdesconto, vendasxpbm, receita, receitasxprodutos, vendasxentrega, movimentocaixa, vendasxcartao (à vista) e débito (a prazo) — reutilizando os registradores de produção com exists-check por chave exata. Vendas sem XML de pré-venda em PrevendaxArquivoXml são sinalizadas como não reconstruíveis para revisão manual.</li>
+      </ul>
+    </div>
+
+    <h2 class="section">Correções <span class="count">13 itens</span></h2>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2116</span>
+        <span class="modulo">NF-e Modelo 55 &rsaquo; Destinatário</span>
+      </div>
+      <p>IE do destinatário vazia, preenchida com "ISENTO" ou com zeros agora é tratada corretamente como <strong>não-contribuinte (indIEDest=9)</strong> nos caminhos legado e Zeus. Elimina a rejeição SEFAZ <strong>232</strong> para esses casos.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2115</span>
+        <span class="modulo">NF-e &rsaquo; Devolução</span>
+      </div>
+      <p>NF-e de devolução agora referencia o documento fiscal de origem <strong>por item</strong> (det/DFeReferenciado), conforme NT 2025.002 VC02-14. O campo ide/NFref foi suprimido. Corrige a rejeição <strong>321</strong> "NF-e de devolução de mercadoria não possui documento fiscal referenciado".</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2120</span>
+        <span class="modulo">NFC-e &rsaquo; Numeração</span>
+      </div>
+      <p>Corrigido o processo de <strong>geração de novo número de NFC-e</strong> que não estava funcionando corretamente.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2122</span>
+        <span class="modulo">Sintegra</span>
+      </div>
+      <p>Corrigida <strong>divergência nos valores</strong> gerados no arquivo Sintegra.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2132</span>
+        <span class="modulo">Retaguarda &rsaquo; Produto</span>
+      </div>
+      <p>Ao cadastrar um novo produto pelo FrmProduto_Cadastro, o <strong>histórico de preço</strong> agora é registrado corretamente no momento do cadastro.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2131</span>
+        <span class="modulo">NFC-e &rsaquo; Farmácia Popular</span>
+      </div>
+      <p>Corrigido erro que impedia o <strong>estorno de vendas do Farmácia Popular</strong> na NFC-e.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2137</span>
+        <span class="modulo">Retaguarda &rsaquo; iMendes</span>
+      </div>
+      <p>A <strong>aplicação de Regras Fiscais iMendes</strong> foi otimizada para ser executada com mais agilidade, reduzindo o tempo de processamento.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2130</span>
+        <span class="modulo">Retaguarda &rsaquo; NF-e</span>
+      </div>
+      <p>Corrigido erro de <strong>CST não reconhecido na emissão de NF-e</strong>: adicionado tratamento para CST 200 (grupo gRed), cujo pRedAliq provém de ClassTrib.pRedIBS/pRedCBS.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2128</span>
+        <span class="modulo">NFC-e &rsaquo; Ferramentas</span>
+      </div>
+      <p>Adicionadas <strong>ferramentas para pesquisar pré-venda com número duplicado</strong> entre terminais concorrentes.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2140</span>
+        <span class="modulo">NFC-e e NF-e Modelo 55 &rsaquo; IBS/CBS</span>
+      </div>
+      <p>Corrigida a <strong>base de cálculo do IBS/CBS</strong> no período de transição: os tributos próprios efetivamente incidentes na operação são agora excluídos da base (NFC-e = ICMS; NF-e = ICMS + PIS + COFINS + IPI), conforme regra legal vigente.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2139</span>
+        <span class="modulo">Retaguarda &rsaquo; NF-e de Devolução</span>
+      </div>
+      <p>Corrigido erro na <strong>emissão de NF-e de Devolução</strong> pela Retaguarda.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2142</span>
+        <span class="modulo">NFC-e &rsaquo; DANFE</span>
+      </div>
+      <p>Corrigida exceção que ocorria na <strong>geração do DANFE</strong> durante a emissão de NF-e de Devolução.</p>
+    </div>
+
+    <div class="item fixed">
+      <div class="item-header">
+        <span class="tec">TEC-2138</span>
+        <span class="modulo">NFC-e &rsaquo; IBS/CBS</span>
+      </div>
+      <p>Corrigido o <strong>cStat 1115</strong> causado por IBS/CBS não informado no XML da NFC-e.</p>
+    </div>
+
+  </div>
+</main>
+<footer>
+  Fonte: <code>changelog.md</code> do repositório tecfarma &mdash; branch origin/developer &mdash; se&ccedil;&atilde;o <code>## 2026.08.09</code><br>
+  Gerado em: 2026-09-07 &mdash; Develon Tecnologia &middot; Tecfarma
+</footer>
+</body>
+</html>
