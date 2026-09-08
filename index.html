@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -11,22 +11,36 @@ header{background:linear-gradient(135deg,#0a7d53,#065f46);color:#fff;padding:48p
 .wrap{max-width:880px;margin:0 auto}
 header h1{margin:0 0 8px;font-size:28px}header p{margin:0;opacity:.9}
 main{padding:32px 24px}
-.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;text-decoration:none;color:inherit;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.section-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.section-label:first-child{margin-top:0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:10px 0;text-decoration:none;color:inherit;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .card:hover{border-color:var(--brand);box-shadow:0 6px 18px rgba(10,125,83,.12);transform:translateY(-1px)}
 .card h2{margin:0 0 6px;font-size:18px;color:var(--brand)}
 .card p{margin:0;color:var(--muted);font-size:14px}
+.card.rn{border-left:3px solid var(--brand)}
 footer{color:var(--muted);font-size:13px;text-align:center;padding:24px}
 </style>
 </head>
 <body>
-<header><div class="wrap"><h1>Tecfarma — Documentação</h1><p>Guias e instruções operacionais do sistema Tecfarma</p></div></header>
+<header><div class="wrap"><h1>Tecfarma &mdash; Documenta&ccedil;&atilde;o</h1><p>Guias e instru&ccedil;&otilde;es operacionais do sistema Tecfarma</p></div></header>
 <main><div class="wrap">
+
+<p class="section-label">Release Notes</p>
+<a class="card rn" href="./release-2026.08.09.16.html"><h2>Release 2026.08.09.16 &mdash; Novidades e Corre&ccedil;&otilde;es</h2><p>5 novidades (TEC-2145 ferramenta de suporte NFC-e, bot&atilde;o cancelamento NF-e, conv&ecirc;nio inativo, XML UTF-8, Pre&ccedil;o Promocional) e 13 corre&ccedil;&otilde;es (IBS/CBS, devolu&ccedil;&atilde;o, Sintegra, iMendes, DANFE). Publicada em 07/09/2026.</p></a>
+<a class="card rn" href="./release-notes-2026.08.09.html"><h2>Novidades da vers&atilde;o 2026.08.09</h2><p>Release Notes do ciclo 15/06/2026&ndash;10/08/2026: 26 novidades (Zeus 2026.7.16, emiss&atilde;o NF-e Zeus, cancelamento pelo Hist&oacute;rico, Imendes API 3.0) e 24 corre&ccedil;&otilde;es (rejei&ccedil;&atilde;o 232, NFC-e, SPED).</p></a>
+
+<p class="section-label">Guias Operacionais</p>
 <a class="card" href="./cadastro-produto.html"><h2>Cadastro de produto</h2><p>Como cadastrar e editar produtos na Retaguarda: dados cadastrais, complementares, fiscais (NCM/CEST), vencimento, fornecedores e kit.</p></a>
-<a class="card" href="./comissao-funcionarios.html"><h2>Comissão de funcionários</h2><p>Como funciona a regra de comissão por produto e por grupo, com exemplos visuais e simulador de cálculo.</p></a>
-<a class="card" href="./cancelamento-venda.html"><h2>Como cancelar uma venda</h2><p>Cancelamento rápido (até 30 min) e NF-e de devolução de venda (após 30 min), passo a passo a partir de Relatórios > Vendas > Rastrear vendas.</p></a>
-<a class="card" href="./corrigir-inconsistencias-nfce.html"><h2>Correção de Inconsistências na NFC-e</h2><p>Como habilitar a correção automática de NFC-e (chaves sem protocolo, XML divergente), usar a ferramenta Sincronizar e configurar os dados fiscais do produto.</p></a>
-<a class="card" href="./documentacao-teste.html"><h2>Documentação de Teste</h2><p>Página de teste do pipeline de publicação. Valida o sistema de documentação e GitHub Pages do Tecfarma.</p></a>
-<a class="card" href="./cclasstrib-nfe-vs-nfce.html"><h2>cClassTrib: NF-e vs NFC-e (IBS/CBS)</h2><p>O cClassTrib (Reforma Tributária) pode diferir entre NF-e (modelo 55) e NFC-e (modelo 65)? Quando deve ser igual e quando pode mudar, com tabelas e exemplos práticos.</p></a><a class="card" href="./release-notes-2026.08.09.html"><h2>Novidades da versão 2026.08.09</h2><p>Release Notes do ciclo 15/06/2026–10/08/2026: 26 novidades (Zeus 2026.7.16, emissão NF-e Zeus, cancelamento pelo Histórico, Imendes API 3.0) e 24 correções (rejeição 232, NFC-e, SPED).</p></a><a class="card" href="./csts-ibs-cbs-farmacia.html"><h2>CSTs de IBS/CBS &mdash; Farm</div></main>aacute;cia/Drogaria (TEC-2135)</h2><p>Guia de refer</div></main>ecirc;ncia das CSTs de IBS/CBS para farm</div></main>aacute;cia varejista: 210, 220, 221, 222, 510, 550, 800, 810 e 830 &mdash; finalidade, fam</div></main>iacute;lia cClassTrib, relev</div></main>acirc;ncia e distin</div></main>ccedil;</div></main>atilde;o dos mecanismos tribut</div></main>aacute;rios.</p></a><a class="card" href="./roteiro-abrir-loja-ifood.html"><h2>Roteiro para abrir a loja no Portal iFood</h2><p>Guia passo a passo para registrar e ativar uma farm&aacute;cia no iFood: integra&ccedil;&atilde;o OAuth2, configura&ccedil;&atilde;o do merchant, card&aacute;pio, homologa&ccedil;&atilde;o no Sandbox e go-live em produ&ccedil;&atilde;o. (TEC-1036)</p></a><a class="card" href="./imendes-configuracao-nova-drogaria.html"><h2>Como configurar a iMendes em uma nova Drogaria</h2><p>Guia de Suporte para habilitar a integração iMendes (LabFisc) em uma farmácia recém-contratada: chaves de configuração, endpoints, passo a passo e troubleshooting.</p></a></div></main>
-<footer>Develon Tecnologia · Tecfarma</footer>
+<a class="card" href="./comissao-funcionarios.html"><h2>Comiss&atilde;o de funcion&aacute;rios</h2><p>Como funciona a regra de comiss&atilde;o por produto e por grupo, com exemplos visuais e simulador de c&aacute;lculo.</p></a>
+<a class="card" href="./cancelamento-venda.html"><h2>Como cancelar uma venda</h2><p>Cancelamento r&aacute;pido (at&eacute; 30 min) e NF-e de devolu&ccedil;&atilde;o de venda (ap&oacute;s 30 min), passo a passo a partir de Relat&oacute;rios &gt; Vendas &gt; Rastrear vendas.</p></a>
+<a class="card" href="./corrigir-inconsistencias-nfce.html"><h2>Corre&ccedil;&atilde;o de Inconsist&ecirc;ncias na NFC-e</h2><p>Como habilitar a corre&ccedil;&atilde;o autom&aacute;tica de NFC-e (chaves sem protocolo, XML divergente), usar a ferramenta Sincronizar e configurar os dados fiscais do produto.</p></a>
+<a class="card" href="./documentacao-teste.html"><h2>Documenta&ccedil;&atilde;o de Teste</h2><p>P&aacute;gina de teste do pipeline de publica&ccedil;&atilde;o. Valida o sistema de documenta&ccedil;&atilde;o e GitHub Pages do Tecfarma.</p></a>
+<a class="card" href="./cclasstrib-nfe-vs-nfce.html"><h2>cClassTrib: NF-e vs NFC-e (IBS/CBS)</h2><p>O cClassTrib (Reforma Tribut&aacute;ria) pode diferir entre NF-e (modelo 55) e NFC-e (modelo 65)? Quando deve ser igual e quando pode mudar, com tabelas e exemplos pr&aacute;ticos.</p></a>
+<a class="card" href="./csts-ibs-cbs-farmacia.html"><h2>CSTs de IBS/CBS &mdash; Farm&aacute;cia/Drogaria (TEC-2135)</h2><p>Guia de refer&ecirc;ncia das CSTs de IBS/CBS para farm&aacute;cia varejista: 210, 220, 221, 222, 510, 550, 800, 810 e 830 &mdash; finalidade, fam&iacute;lia cClassTrib, relev&acirc;ncia e distin&ccedil;&atilde;o dos mecanismos tribut&aacute;rios.</p></a>
+<a class="card" href="./roteiro-abrir-loja-ifood.html"><h2>Roteiro para abrir a loja no Portal iFood</h2><p>Guia passo a passo para registrar e ativar uma farm&aacute;cia no iFood: integra&ccedil;&atilde;o OAuth2, configura&ccedil;&atilde;o do merchant, card&aacute;pio, homologa&ccedil;&atilde;o no Sandbox e go-live em produ&ccedil;&atilde;o. (TEC-1036)</p></a>
+<a class="card" href="./imendes-configuracao-nova-drogaria.html"><h2>Como configurar a iMendes em uma nova Drogaria</h2><p>Guia de Suporte para habilitar a integra&ccedil;&atilde;o iMendes (LabFisc) em uma farm&aacute;cia rec&eacute;m-contratada: chaves de configura&ccedil;&atilde;o, endpoints, passo a passo e troubleshooting.</p></a>
+
+</div></main>
+<footer>Develon Tecnologia &middot; Tecfarma</footer>
 </body>
 </html>
