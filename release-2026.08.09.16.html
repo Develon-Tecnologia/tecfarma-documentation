@@ -3,218 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TECFARMA_2 — Release 2026.08.09.16</title>
+<title>TECFARMA_2 — Novidades da versão 2026.08.09.16</title>
 <style>
-:root{--brand:#0a7d53;--brand-dark:#065f46;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--added:#dcfce7;--added-border:#16a34a;--fixed:#dbeafe;--fixed-border:#2563eb;--highlight:#fef9c3;--highlight-border:#ca8a04}
+:root{
+  --brand:#0a7d53;--brand-2:#065f46;--brand-3:#0e9f6e;
+  --blue:#1d6fb8;--blue-2:#0b4f8a;
+  --ink:#0f172a;--muted:#5b6b7b;--soft:#8595a5;
+  --bg:#f4f8f6;--card:#ffffff;--line:#e4ece8;
+  --gold:#b8860b;--gold-bg:#fff8e6;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+  --shadow-lg:0 18px 40px rgba(10,125,83,.14);
+  --radius:16px;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
-header{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;padding:48px 24px}
-.wrap{max-width:860px;margin:0 auto}
-header h1{margin:0 0 6px;font-size:26px;font-weight:700}
-header .sub{margin:0;opacity:.88;font-size:15px}
-.badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:2px 10px;font-size:13px;font-weight:600;margin-top:10px}
-main{padding:36px 24px}
-.headline{background:var(--highlight);border:1px solid var(--highlight-border);border-radius:12px;padding:18px 22px;margin-bottom:28px}
-.headline h2{margin:0 0 6px;font-size:16px;color:#92400e;font-weight:700}
-.headline p{margin:0;font-size:14px;color:#78350f}
-h2.section{font-size:20px;font-weight:700;color:var(--ink);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
-h2.section .count{font-size:14px;font-weight:500;color:var(--muted);margin-left:8px}
-.item{border-radius:10px;padding:16px 20px;margin:10px 0;border-left:4px solid}
-.item.added{background:var(--added);border-color:var(--added-border)}
-.item.fixed{background:var(--fixed);border-color:var(--fixed-border)}
-.item-header{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
-.tec{font-weight:700;font-size:14px;font-family:monospace;letter-spacing:.02em}
-.item.added .tec{color:#15803d}
-.item.fixed .tec{color:#1d4ed8}
-.modulo{font-size:12px;font-weight:600;color:var(--muted);background:#fff;border-radius:4px;padding:1px 7px;border:1px solid var(--line);white-space:nowrap}
-.item p{margin:0;font-size:14px;color:var(--ink)}
-.item p+p{margin-top:6px}
-.item ul{margin:6px 0 0;padding-left:20px;font-size:14px;color:var(--ink)}
-.item ul li{margin-bottom:3px}
-.back{display:inline-block;margin-bottom:24px;color:var(--brand);font-size:14px;text-decoration:none;font-weight:500}
-.back:hover{text-decoration:underline}
-footer{color:var(--muted);font-size:12px;text-align:center;padding:24px;border-top:1px solid var(--line);margin-top:16px}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+a{color:inherit}
+
+/* ===== HERO ===== */
+.hero{position:relative;overflow:hidden;color:#fff;padding:72px 0 96px;background:linear-gradient(135deg,#0a7d53 0%,#065f46 55%,#0b4f8a 130%)}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 15% 20%,rgba(255,255,255,.16),transparent 42%),
+  radial-gradient(circle at 85% 75%,rgba(255,255,255,.10),transparent 40%);pointer-events:none}
+.hero .blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;background:radial-gradient(circle,#0e9f6e,transparent 70%);animation:float 14s ease-in-out infinite}
+.hero .b1{width:340px;height:340px;top:-90px;right:-60px}
+.hero .b2{width:240px;height:240px;bottom:-110px;left:-40px;animation-delay:-6s;background:radial-gradient(circle,#2d8fd4,transparent 70%)}
+@keyframes float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(26px) translateX(-14px)}}
+.hero .wrap{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.03em;backdrop-filter:blur(4px)}
+.badge svg{width:15px;height:15px}
+.hero h1{margin:20px 0 6px;font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.hero .ver{display:block;font-size:clamp(15px,2.6vw,20px);font-weight:600;opacity:.92;margin-top:6px}
+.hero .tagline{margin:16px 0 0;font-size:clamp(15px,2.4vw,19px);max-width:640px;opacity:.95}
+.hero .pub{margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-size:14px;opacity:.9}
+.hero .pub svg{width:16px;height:16px}
+
+/* ===== STATS ===== */
+.stats{position:relative;z-index:2;margin-top:-52px}
+.stats .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;box-shadow:var(--shadow-lg);text-align:center}
+.stat .n{font-size:38px;font-weight:800;color:var(--brand);line-height:1;letter-spacing:-.02em}
+.stat .l{margin-top:8px;font-size:13.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.stat:nth-child(2) .n{color:var(--blue)}
+.stat:nth-child(3) .n{color:var(--gold)}
+
+/* ===== FILTERS ===== */
+.filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:44px 0 8px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--muted);padding:9px 16px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;transition:.18s;font-family:inherit}
+.chip:hover{border-color:var(--brand-3);color:var(--brand)}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 4px 12px rgba(10,125,83,.25)}
+
+/* ===== HIGHLIGHT BANNER ===== */
+.highlight{margin:34px 0 8px;background:linear-gradient(120deg,#fffdf5,#fff8e6);border:1px solid #f0e2b8;border-left:5px solid var(--gold);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.highlight .star{position:absolute;top:-24px;right:-10px;font-size:120px;opacity:.06;line-height:1}
+.highlight .kicker{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--gold)}
+.highlight .kicker svg{width:15px;height:15px}
+.highlight h2{margin:10px 0 8px;font-size:23px;letter-spacing:-.01em}
+.highlight p{margin:0;color:#4a5568;max-width:760px}
+.highlight .tag{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;color:var(--gold);background:#fff3d1;padding:4px 10px;border-radius:999px}
+
+/* ===== THEME SECTIONS ===== */
+.theme{margin:52px 0 0}
+.theme-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.theme-ic{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#fff;box-shadow:0 6px 16px rgba(10,125,83,.22)}
+.theme-ic svg{width:24px;height:24px}
+.t-tax .theme-ic{background:linear-gradient(135deg,#1d6fb8,#0b4f8a)}
+.t-nfe .theme-ic{background:linear-gradient(135deg,#0a7d53,#0e9f6e)}
+.t-back .theme-ic{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.t-int .theme-ic{background:linear-gradient(135deg,#0891b2,#0e7490)}
+.theme-head h2{margin:0;font-size:22px;letter-spacing:-.01em}
+.theme-head p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s,border-color .18s;position:relative}
+.card:hover{transform:translateY(-3px);border-color:var(--brand-3);box-shadow:var(--shadow-lg)}
+.card h3{margin:0 0 8px;font-size:16.5px;line-height:1.35;padding-right:8px}
+.card p{margin:0;font-size:14.5px;color:var(--muted)}
+.card .tag{display:inline-block;margin-top:14px;font-size:11.5px;font-weight:700;letter-spacing:.03em;color:var(--brand);background:#e8f5ef;padding:4px 10px;border-radius:999px}
+.card.new .tag{color:var(--blue);background:#e7f1fb}
+.card .kind{position:absolute;top:18px;right:18px;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+
+/* ===== REVEAL ANIMATION (progressive enhancement) ===== */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .hero .blob{animation:none}
+}
+
+/* ===== FOOTER ===== */
+footer{margin-top:64px;padding:40px 0;border-top:1px solid var(--line);background:#fff}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+footer .brand{font-weight:800;color:var(--brand);letter-spacing:-.01em}
+footer .note{font-size:13px;color:var(--soft)}
+
+@media (max-width:720px){
+  .stats .grid{grid-template-columns:1fr;gap:12px}
+  .cards{grid-template-columns:1fr}
+  .hero{padding:56px 0 84px}
+}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
-<header>
+
+<header class="hero">
+  <span class="blob b1"></span><span class="blob b2"></span>
   <div class="wrap">
-    <h1>TECFARMA_2 &mdash; Release 2026.08.09.16</h1>
-    <p class="sub">Publicada em Developer: 07/09/2026</p>
-    <span class="badge">Destaque: TEC-2145 &mdash; Ferramenta de Suporte NFC-e</span>
+    <span class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 0 3-3m-3 3L9 5"/><rect x="4" y="8" width="16" height="13" rx="2"/><path d="M9 13h6M9 17h4"/></svg>
+      Notas de Versão
+    </span>
+    <h1>TECFARMA_2 — Novidades da versão
+      <span class="ver">2026.08.09.16</span>
+    </h1>
+    <p class="tagline">Uma entrega focada em conformidade fiscal, emissão mais robusta de NFC-e e NF-e e ferramentas que trazem tranquilidade ao dia a dia da sua farmácia.</p>
+    <span class="pub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Publicada em 07/09/2026
+    </span>
   </div>
 </header>
-<main>
+
+<section class="stats">
   <div class="wrap">
-    <a class="back" href="./">&larr; Voltar para a Documentação</a>
-
-    <div class="headline">
-      <h2>&#11088; Destaque da versão &mdash; TEC-2145</h2>
-      <p>Nova ferramenta de suporte para situações críticas de NFC-e: <strong>renumeração de cupom duplicado/não transmitido</strong> (não-colisão escopada por série/ambiente, cascade NFCeProduto, bloqueio de autorizada), <strong>forçar baixa de estoque idempotente</strong> (controlado via vendasxprodutosxhistorico) e <strong>reconciliação atômica das tabelas de finalização de venda</strong> a partir do XML da pré-venda persistido — cobrindo comissão, lotes, PBM, receita, entrega, caixa e cartão.</p>
+    <div class="grid">
+      <div class="stat reveal"><div class="n">5</div><div class="l">Novidades</div></div>
+      <div class="stat reveal"><div class="n">13</div><div class="l">Melhorias &amp; Correções</div></div>
+      <div class="stat reveal"><div class="n">5</div><div class="l">Áreas do sistema</div></div>
     </div>
-
-    <h2 class="section">Novidades <span class="count">5 itens</span></h2>
-
-    <div class="item added">
-      <div class="item-header">
-        <span class="tec">TEC-796</span>
-        <span class="modulo">Retaguarda &rsaquo; Histórico de NF-e</span>
-      </div>
-      <p>Adicionado botão de cancelamento de NF-e diretamente na tela de <strong>Histórico de Notas Fiscais Eletrônicas</strong>. O operador/suporte pode iniciar o cancelamento sem precisar sair do Histórico ou navegar para outra tela.</p>
-    </div>
-
-    <div class="item added">
-      <div class="item-header">
-        <span class="tec">TEC-1360</span>
-        <span class="modulo">Retaguarda &rsaquo; Convênio / PDV</span>
-      </div>
-      <p>Implementado o <strong>campo "Ativo" no cadastro de convênio</strong>, permitindo desativar convênios inutilizados. Impactos:</p>
-      <ul>
-        <li>Listagem e lookup de clientes passam a filtrar convênios inativos automaticamente.</li>
-        <li>O PDV bloqueia vendas a prazo para clientes cujo convênio esteja desativado, evitando uso indevido de convênios obsoletos.</li>
-      </ul>
-    </div>
-
-    <div class="item added">
-      <div class="item-header">
-        <span class="tec">TEC-2133</span>
-        <span class="modulo">NFC-e &rsaquo; Geração de XML</span>
-      </div>
-      <p>Garantida a presença da declaração <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</code> no XML da NFC-e em todos os fluxos: envio à SEFAZ, persistência do XML autorizado e ferramenta de reprocessamento em lote. Resolve erros em sistemas de terceiros que exigem a declaração explícita.</p>
-    </div>
-
-    <div class="item added">
-      <div class="item-header">
-        <span class="tec">TEC-1653</span>
-        <span class="modulo">Retaguarda &rsaquo; Entrada de Nota</span>
-      </div>
-      <p>Campo <strong>Preço Promocional</strong> incluído na tela de <strong>Alteração de Preços na Entrada de Nota</strong>. Permite definir ou atualizar preços promocionais no momento do recebimento da mercadoria, sem etapa adicional no cadastro do produto.</p>
-    </div>
-
-    <div class="item added">
-      <div class="item-header">
-        <span class="tec">TEC-2145</span>
-        <span class="modulo">RotinasSuporte &rsaquo; Ferramenta NFC-e</span>
-      </div>
-      <p>Nova <strong>ferramenta de suporte</strong> com três operações para situações críticas de NFC-e:</p>
-      <ul>
-        <li><strong>Renumerar cupom NFC-e duplicado / não transmitido:</strong> renumeração com garantia de não-colisão escopada pela série e ambiente da PDVEstacao (mesma fonte do gerador de produção), em cascata para NFCeProduto. Disponível em variante sem linha NFCe. NFC-e já autorizada é bloqueada; operação executada em transação única atômica com idempotência por produto.</li>
-        <li><strong>Forçar baixa de estoque (idempotente):</strong> executa a baixa de estoque para vendas autorizadas com NFC-e autorizada e não cancelada, controlada via vendasxprodutosxhistorico para garantir idempotência por produto.</li>
-        <li><strong>Reconciliação das tabelas de finalização:</strong> reconstrói o OCupomFiscal a partir do XML da pré-venda (PrevendaxArquivoXml) e reconcilia as tabelas vendasxprodutosxzerados, funcionariosxcomissao, vendasxprodutosxlotes, vendasxhistoricoxdesconto, vendasxpbm, receita, receitasxprodutos, vendasxentrega, movimentocaixa, vendasxcartao (à vista) e débito (a prazo) — reutilizando os registradores de produção com exists-check por chave exata. Vendas sem XML de pré-venda em PrevendaxArquivoXml são sinalizadas como não reconstruíveis para revisão manual.</li>
-      </ul>
-    </div>
-
-    <h2 class="section">Correções <span class="count">13 itens</span></h2>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2116</span>
-        <span class="modulo">NF-e Modelo 55 &rsaquo; Destinatário</span>
-      </div>
-      <p>IE do destinatário vazia, preenchida com "ISENTO" ou com zeros agora é tratada corretamente como <strong>não-contribuinte (indIEDest=9)</strong> nos caminhos legado e Zeus. Elimina a rejeição SEFAZ <strong>232</strong> para esses casos.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2115</span>
-        <span class="modulo">NF-e &rsaquo; Devolução</span>
-      </div>
-      <p>NF-e de devolução agora referencia o documento fiscal de origem <strong>por item</strong> (det/DFeReferenciado), conforme NT 2025.002 VC02-14. O campo ide/NFref foi suprimido. Corrige a rejeição <strong>321</strong> "NF-e de devolução de mercadoria não possui documento fiscal referenciado".</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2120</span>
-        <span class="modulo">NFC-e &rsaquo; Numeração</span>
-      </div>
-      <p>Corrigido o processo de <strong>geração de novo número de NFC-e</strong> que não estava funcionando corretamente.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2122</span>
-        <span class="modulo">Sintegra</span>
-      </div>
-      <p>Corrigida <strong>divergência nos valores</strong> gerados no arquivo Sintegra.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2132</span>
-        <span class="modulo">Retaguarda &rsaquo; Produto</span>
-      </div>
-      <p>Ao cadastrar um novo produto pelo FrmProduto_Cadastro, o <strong>histórico de preço</strong> agora é registrado corretamente no momento do cadastro.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2131</span>
-        <span class="modulo">NFC-e &rsaquo; Farmácia Popular</span>
-      </div>
-      <p>Corrigido erro que impedia o <strong>estorno de vendas do Farmácia Popular</strong> na NFC-e.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2137</span>
-        <span class="modulo">Retaguarda &rsaquo; iMendes</span>
-      </div>
-      <p>A <strong>aplicação de Regras Fiscais iMendes</strong> foi otimizada para ser executada com mais agilidade, reduzindo o tempo de processamento.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2130</span>
-        <span class="modulo">Retaguarda &rsaquo; NF-e</span>
-      </div>
-      <p>Corrigido erro de <strong>CST não reconhecido na emissão de NF-e</strong>: adicionado tratamento para CST 200 (grupo gRed), cujo pRedAliq provém de ClassTrib.pRedIBS/pRedCBS.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2128</span>
-        <span class="modulo">NFC-e &rsaquo; Ferramentas</span>
-      </div>
-      <p>Adicionadas <strong>ferramentas para pesquisar pré-venda com número duplicado</strong> entre terminais concorrentes.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2140</span>
-        <span class="modulo">NFC-e e NF-e Modelo 55 &rsaquo; IBS/CBS</span>
-      </div>
-      <p>Corrigida a <strong>base de cálculo do IBS/CBS</strong> no período de transição: os tributos próprios efetivamente incidentes na operação são agora excluídos da base (NFC-e = ICMS; NF-e = ICMS + PIS + COFINS + IPI), conforme regra legal vigente.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2139</span>
-        <span class="modulo">Retaguarda &rsaquo; NF-e de Devolução</span>
-      </div>
-      <p>Corrigido erro na <strong>emissão de NF-e de Devolução</strong> pela Retaguarda.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2142</span>
-        <span class="modulo">NFC-e &rsaquo; DANFE</span>
-      </div>
-      <p>Corrigida exceção que ocorria na <strong>geração do DANFE</strong> durante a emissão de NF-e de Devolução.</p>
-    </div>
-
-    <div class="item fixed">
-      <div class="item-header">
-        <span class="tec">TEC-2138</span>
-        <span class="modulo">NFC-e &rsaquo; IBS/CBS</span>
-      </div>
-      <p>Corrigido o <strong>cStat 1115</strong> causado por IBS/CBS não informado no XML da NFC-e.</p>
-    </div>
-
   </div>
+</section>
+
+<main class="wrap">
+
+  <!-- FILTERS -->
+  <nav class="filters reveal" aria-label="Filtrar por área">
+    <button class="chip" data-filter="all" aria-pressed="true">Tudo</button>
+    <button class="chip" data-filter="support" aria-pressed="false">Ferramentas de Suporte</button>
+    <button class="chip" data-filter="tax" aria-pressed="false">Reforma Tributária</button>
+    <button class="chip" data-filter="nfe" aria-pressed="false">NFC-e &amp; NF-e</button>
+    <button class="chip" data-filter="back" aria-pressed="false">Retaguarda</button>
+    <button class="chip" data-filter="int" aria-pressed="false">Integrações &amp; Fiscal</button>
+  </nav>
+
+  <!-- HIGHLIGHT -->
+  <section class="highlight reveal" data-theme="support">
+    <span class="star">★</span>
+    <span class="kicker">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 15 9l7 .5-5.3 4.6L18.5 21 12 17.3 5.5 21l1.8-6.9L2 9.5 9 9z"/></svg>
+      Destaque da versão
+    </span>
+    <h2>Recuperação de vendas após incidentes de energia</h2>
+    <p>Nova ferramenta de suporte que devolve consistência ao caixa e ao estoque quando uma queda de energia deixa cupons NFC-e duplicados ou vendas sem baixa. Ela renumera com segurança os cupons não transmitidos e força a baixa de estoque das vendas já autorizadas — de forma <strong>idempotente</strong>, ou seja, sem risco de baixar estoque em dobro. Vendas já autorizadas na SEFAZ ficam protegidas. Menos retrabalho manual e mais confiança nos números da loja.</p>
+    <span class="tag">TEC-2145 · Ferramentas de Suporte</span>
+  </section>
+
+  <!-- REFORMA TRIBUTÁRIA -->
+  <section class="theme t-tax" data-theme="tax">
+    <div class="theme-head reveal">
+      <span class="theme-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 4-5"/></svg></span>
+      <div><h2>Reforma Tributária (IBS/CBS)</h2><p>Cálculo correto e emissão sem rejeições no novo modelo tributário.</p></div>
+    </div>
+    <div class="cards">
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Base do IBS/CBS correta na transição</h3>
+        <p>Na emissão de NFC-e e NF-e, os tributos próprios da operação (ICMS na NFC-e; ICMS, PIS, COFINS e IPI na NF-e) deixam de compor a base do IBS/CBS conforme a LC 214/2025 no período de transição — evitando imposto calculado a maior.</p>
+        <span class="tag">TEC-2140</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Fim da rejeição “IBS/CBS não informado”</h3>
+        <p>Garante que os grupos de IBS/CBS sejam sempre informados na NFC-e, eliminando a rejeição cStat 1115 e mantendo a emissão fluindo.</p>
+        <span class="tag">TEC-2138</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>CST 200 (alíquota reduzida) reconhecida</h3>
+        <p>Corrige o erro “CST não reconhecido” na NF-e e passa a respeitar a classificação tributária (cClassTrib) ajustada no item, aplicando a redução de alíquota corretamente.</p>
+        <span class="tag">TEC-2130</span></article>
+    </div>
+  </section>
+
+  <!-- NFC-e & NF-e -->
+  <section class="theme t-nfe" data-theme="nfe">
+    <div class="theme-head reveal">
+      <span class="theme-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
+      <div><h2>NFC-e &amp; NF-e — Emissão mais robusta</h2><p>Menos rejeições da SEFAZ e mais ferramentas para resolver pendências.</p></div>
+    </div>
+    <div class="cards">
+      <article class="card reveal"><span class="kind">Novidade</span>
+        <h3>XML sempre com declaração UTF-8</h3>
+        <p>Garante o cabeçalho <code>&lt;?xml … UTF-8?&gt;</code> no envio, na guarda do documento autorizado e em ferramenta em lote — evitando falhas de leitura e importação do XML por outros sistemas.</p>
+        <span class="tag">TEC-2133</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Destinatário sem Inscrição Estadual não trava mais a NF-e</h3>
+        <p>IE em branco, “ISENTO” ou zerada passa a ser tratada como não-contribuinte, eliminando a rejeição 232 — sem exigir que o operador limpe o campo manualmente.</p>
+        <span class="tag">TEC-2116</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>NF-e de devolução referenciando a origem por item</h3>
+        <p>Cada item da devolução passa a referenciar o documento fiscal de origem, corrigindo a rejeição 321 “NF-e de devolução não possui documento fiscal referenciado”.</p>
+        <span class="tag">TEC-2115</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Geração do próximo número de NFC-e corrigida</h3>
+        <p>A rotina de gerar um novo número de NFC-e volta a funcionar de forma consistente, evitando falhas ao sequenciar cupons.</p>
+        <span class="tag">TEC-2120</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Emissão de NF-e de devolução corrigida</h3>
+        <p>Resolve o erro que ocorria na emissão de notas fiscais de devolução na Retaguarda.</p>
+        <span class="tag">TEC-2139</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>DANFE de devolução volta a ser gerado</h3>
+        <p>Corrige a exceção na geração do DANFE (exportação em PDF) durante a emissão de NF-e de devolução.</p>
+        <span class="tag">TEC-2142</span></article>
+      <article class="card reveal"><span class="kind">Novidade</span>
+        <h3>Localizar pré-vendas com número duplicado</h3>
+        <p>Nova ferramenta para pesquisar pré-vendas com número duplicado, facilitando o diagnóstico e a correção de pendências de emissão.</p>
+        <span class="tag">TEC-2128</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Estorno de Farmácia Popular na NFC-e</h3>
+        <p>Corrige o erro ao estornar vendas de Farmácia Popular, mantendo o fluxo do PBM consistente.</p>
+        <span class="tag">TEC-2131</span></article>
+    </div>
+  </section>
+
+  <!-- RETAGUARDA -->
+  <section class="theme t-back" data-theme="back">
+    <div class="theme-head reveal">
+      <span class="theme-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+      <div><h2>Retaguarda &amp; Usabilidade</h2><p>Mais agilidade e controle nas rotinas do dia a dia.</p></div>
+    </div>
+    <div class="cards">
+      <article class="card new reveal"><span class="kind">Novidade</span>
+        <h3>Cancelamento de NF-e direto no Histórico</h3>
+        <p>Novo botão na tela de Histórico de Notas Fiscais Eletrônicas permite cancelar a nota selecionada sem navegar por menus — atalho tanto para emissão própria quanto para entrada de terceiros (modelo 55).</p>
+        <span class="tag">TEC-796</span></article>
+      <article class="card new reveal"><span class="kind">Novidade</span>
+        <h3>Desativar convênio inutilizado</h3>
+        <p>Um novo campo “Ativo” permite desativar convênios sem uso: eles somem da listagem e do cadastro de clientes e o PDV bloqueia venda a prazo em convênio desativado — mantendo todo o histórico consultável.</p>
+        <span class="tag">TEC-1360</span></article>
+      <article class="card new reveal"><span class="kind">Novidade</span>
+        <h3>Preço Promocional na entrada de nota</h3>
+        <p>A tela de Alteração de Preços na Entrada de Nota passa a contemplar o Preço Promocional, agilizando a atualização de preços já no recebimento da mercadoria.</p>
+        <span class="tag">TEC-1653</span></article>
+    </div>
+  </section>
+
+  <!-- INTEGRAÇÕES -->
+  <section class="theme t-int" data-theme="int">
+    <div class="theme-head reveal">
+      <span class="theme-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7H7a5 5 0 0 0 0 10h2M15 7h2a5 5 0 0 1 0 10h-2M8 12h8"/></svg></span>
+      <div><h2>Integrações &amp; Fiscal</h2><p>Rotinas fiscais mais rápidas e dados mais confiáveis.</p></div>
+    </div>
+    <div class="cards">
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Aplicação de Regras Fiscais iMendes mais ágil</h3>
+        <p>A aplicação das regras fiscais da iMendes ficou mais rápida e estável, inclusive no processamento em lote, reduzindo o tempo da rotina de atualização tributária.</p>
+        <span class="tag">TEC-2137</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Valores do Sintegra sem divergência</h3>
+        <p>Corrige a divergência nos valores gerados no arquivo Sintegra, dando mais confiança à apuração fiscal.</p>
+        <span class="tag">TEC-2122</span></article>
+      <article class="card reveal"><span class="kind">Correção</span>
+        <h3>Histórico de preço ao cadastrar novo produto</h3>
+        <p>Ao cadastrar um produto novo, o preço inicial passa a ser registrado no histórico de preços — garantindo rastreabilidade desde o primeiro cadastro.</p>
+        <span class="tag">TEC-2132</span></article>
+    </div>
+  </section>
+
+  <p class="reveal" style="text-align:center;color:var(--soft);font-size:13.5px;margin:48px 0 0">
+    Cada item traz o seu código de rastreio (TEC-XXXX) para consulta junto ao Suporte Tecfarma.
+  </p>
+
 </main>
+
 <footer>
-  Fonte: <code>changelog.md</code> do repositório tecfarma &mdash; branch origin/developer &mdash; se&ccedil;&atilde;o <code>## 2026.08.09</code><br>
-  Gerado em: 2026-09-07 &mdash; Develon Tecnologia &middot; Tecfarma
+  <div class="wrap">
+    <span class="brand">Develon Tecnologia · Tecfarma</span>
+    <span class="note">Gerado a partir do histórico de entregas do produto — 07/09/2026</span>
+  </div>
 </footer>
+
+<script>
+(function(){
+  document.documentElement.className += " js";
+
+  // Scroll-reveal
+  var els = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    },{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  // Theme filter
+  var chips = document.querySelectorAll(".chip");
+  var sections = document.querySelectorAll("[data-theme]");
+  chips.forEach(function(chip){
+    chip.addEventListener("click", function(){
+      var f = chip.getAttribute("data-filter");
+      chips.forEach(function(c){ c.setAttribute("aria-pressed", c===chip ? "true" : "false"); });
+      sections.forEach(function(sec){
+        var show = (f==="all") || (sec.getAttribute("data-theme")===f);
+        sec.classList.toggle("hidden", !show);
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
